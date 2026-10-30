@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jeffery's Unit 4 Science Hub | Cell Organelles & Energy</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            bgPrimary: '#000000',
+            bgCard: '#1C1C1E',
+            bgElevated: '#2C2C2E',
+            borderSubtle: '#38383A',
+            bioGreen: '#34C759',
+            bioBlue: '#0A84FF',
+            bioPurple: '#BF5AF2',
+            bioOrange: '#FF9F0A',
+            bioRed: '#FF453A',
+            bioCyan: '#64D2FF',
+            bioYellow: '#FFD60A',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #000000;
+      color: #F5F5F7;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* 3D Flashcard Flip Utilities */
+    .perspective-1000 {
+      perspective: 1200px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+
+    /* Subtle SVG Animations */
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.65; transform: scale(0.98); }
+      50% { opacity: 1; transform: scale(1.04); }
+    }
+    @keyframes floatUpDown {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+    .svg-spin {
+      transform-origin: center;
+      animation: spinSlow 9s linear infinite;
+    }
+    .svg-pulse {
+      transform-origin: center;
+      animation: pulseGlow 2.8s ease-in-out infinite;
+    }
+    .svg-float {
+      animation: floatUpDown 3s ease-in-out infinite;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #000000;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2C2C2E;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #38383A;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-bioGreen/30 selection:text-bioGreen">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 bg-black/85 backdrop-blur-xl border-b border-bgElevated">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      
+      <!-- Brand / Title -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-bioGreen/25 via-bioBlue/20 to-bioPurple/25 border border-bioGreen/40 flex items-center justify-center shadow-lg shadow-bioGreen/10">
+            <i class="fa-solid fa-dna text-bioGreen text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded-md bg-bioGreen/15 text-bioGreen border border-bioGreen/30 font-semibold">Unit 4 Biology</span>
+              <span class="text-xs text-zinc-400 font-mono hidden sm:inline">16 Core Terms</span>
+            </div>
+            <h1 class="text-base sm:text-lg font-bold tracking-tight text-white">Jeffery's Science Hub: Cell Organelles & Energy</h1>
+          </div>
+        </div>
+
+        <!-- Mobile Sound Toggle -->
+        <button id="soundToggleMobile" onclick="toggleSound()" class="md:hidden p-2.5 rounded-xl bg-bgCard border border-bgElevated text-zinc-300 hover:text-white transition" title="Toggle Sound Effects">
+          <i id="soundIconMobile" class="fa-solid fa-volume-high text-bioGreen"></i>
+        </button>
+      </div>
+
+      <!-- Segmented Mode Switcher -->
+      <nav class="flex items-center gap-1.5 bg-bgCard p-1.5 rounded-2xl border border-bgElevated overflow-x-auto">
+        <button onclick="switchTab('flashcards')" id="tab-flashcards" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-bioGreen text-black shadow-md">
+          <i class="fa-solid fa-clone"></i>
+          <span>1. Flashcards</span>
+        </button>
+        <button onclick="switchTab('visuals')" id="tab-visuals" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap text-zinc-300 hover:text-white hover:bg-bgElevated/60">
+          <i class="fa-solid fa-microscope"></i>
+          <span>2. Visual Guide</span>
+        </button>
+        <button onclick="switchTab('learn')" id="tab-learn" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap text-zinc-300 hover:text-white hover:bg-bgElevated/60">
+          <i class="fa-solid fa-bolt"></i>
+          <span>3. Learn Game</span>
+        </button>
+        <button onclick="switchTab('tests')" id="tab-tests" class="tab-btn flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap text-zinc-300 hover:text-white hover:bg-bgElevated/60">
+          <i class="fa-solid fa-file-signature"></i>
+          <span>4. Practice Tests (5)</span>
+        </button>
+      </nav>
+
+      <!-- Desktop Right Controls: Overall Mastery Pill & Audio Button -->
+      <div class="hidden md:flex items-center gap-3">
+        <div class="flex items-center gap-2.5 bg-bgCard px-3.5 py-1.5 rounded-xl border border-bgElevated">
+          <div class="text-right">
+            <div class="text-[11px] text-zinc-400 font-medium">Mastered</div>
+            <div id="headerMasteryCount" class="text-xs font-mono font-bold text-bioGreen">0 / 16 Words</div>
+          </div>
+          <div class="w-9 h-9 rounded-lg bg-bioGreen/10 border border-bioGreen/30 flex items-center justify-center">
+            <i class="fa-solid fa-trophy text-bioGreen text-sm"></i>
+          </div>
+        </div>
+        <button id="soundToggleDesktop" onclick="toggleSound()" class="p-2.5 rounded-xl bg-bgCard border border-bgElevated text-zinc-300 hover:text-white hover:border-zinc-600 transition" title="Toggle Web Audio Sound Effects">
+          <i id="soundIconDesktop" class="fa-solid fa-volume-high text-bioGreen"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
+
+    <!-- ==========================================
+         MODULE 1: INTERACTIVE FLASHCARDS
+         ========================================== -->
+    <section id="view-flashcards" class="space-y-6">
+      <!-- Top Filter & Mastery Bar -->
+      <div class="bg-bgCard border border-bgElevated rounded-2xl p-4 sm:p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-bioGreen animate-pulse"></span>
+            <h2 class="text-lg font-bold text-white">Interactive 3D Flashcards</h2>
+          </div>
+          <p class="text-xs sm:text-sm text-zinc-400">Click the card or press <kbd class="px-1.5 py-0.5 text-xs font-mono bg-bgElevated rounded border border-zinc-600 text-zinc-200">Space</kbd> to flip. Use <kbd class="px-1.5 py-0.5 text-xs font-mono bg-bgElevated rounded border border-zinc-600 text-zinc-200">←</kbd> <kbd class="px-1.5 py-0.5 text-xs font-mono bg-bgElevated rounded border border-zinc-600 text-zinc-200">→</kbd> arrows to navigate.</p>
+        </div>
+
+        <!-- Deck Filter Buttons -->
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="setFlashcardFilter('all')" id="fc-filter-all" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-bioBlue text-white transition">
+            All Words (16)
+          </button>
+          <button onclick="setFlashcardFilter('learning')" id="fc-filter-learning" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-bgElevated text-zinc-300 hover:text-white transition">
+            Still Learning (<span id="fc-count-learning">16</span>)
+          </button>
+          <button onclick="setFlashcardFilter('gotit')" id="fc-filter-gotit" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-bgElevated text-zinc-300 hover:text-white transition">
+            Got It! (<span id="fc-count-gotit">0</span>)
+          </button>
+          <div class="h-4 w-[1px] bg-bgElevated mx-1 hidden sm:block"></div>
+          <button onclick="toggleFrontHint()" id="fc-hint-toggle" class="px-3 py-1.5 rounded-xl text-xs font-mono font-medium bg-bioPurple/15 text-bioPurple border border-bioPurple/40 hover:bg-bioPurple/25 transition">
+            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Front Word-Part Hint: ON
+          </button>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="bg-bgCard border border-bgElevated rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center gap-4">
+        <div class="flex items-center justify-between sm:w-48">
+          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Deck Mastery</span>
+          <span id="fc-progress-label" class="text-sm font-mono font-bold text-bioGreen">0%</span>
+        </div>
+        <div class="flex-1 h-3 bg-black rounded-full overflow-hidden border border-bgElevated p-0.5">
+          <div id="fc-progress-bar" class="h-full bg-gradient-to-r from-bioBlue via-bioGreen to-emerald-400 rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+        <div class="flex items-center gap-2 self-end sm:self-auto">
+          <button onclick="shuffleFlashcards()" class="px-3 py-1.5 rounded-xl bg-bgElevated hover:bg-zinc-700 text-xs font-semibold text-zinc-200 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-shuffle text-bioBlue"></i> Shuffle
+          </button>
+          <button onclick="resetFlashcards()" class="px-3 py-1.5 rounded-xl bg-bgElevated hover:bg-zinc-700 text-xs font-semibold text-zinc-200 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-rotate-left text-bioOrange"></i> Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Flashcard Stage -->
+      <div id="fc-stage-container" class="max-w-3xl mx-auto space-y-5">
+        <!-- Card Index & Category Pill -->
+        <div class="flex items-center justify-between px-2">
+          <div class="flex items-center gap-2">
+            <span id="fc-card-number" class="px-3 py-1 rounded-lg bg-bgCard border border-bgElevated font-mono text-xs font-bold text-zinc-300">Card 1 of 16</span>
+            <span id="fc-card-category" class="px-3 py-1 rounded-lg bg-bioBlue/15 border border-bioBlue/30 text-bioBlue font-mono text-xs font-semibold">Cells & Organelles</span>
+          </div>
+          <span id="fc-card-status-badge" class="px-3 py-1 rounded-lg bg-bioOrange/15 border border-bioOrange/30 text-bioOrange font-mono text-xs font-semibold">Still Learning</span>
+        </div>
+
+        <!-- 3D Flip Card Container -->
+        <div onclick="flipFlashcard()" class="perspective-1000 cursor-pointer select-none">
+          <div id="fc-inner" class="transform-style-3d relative w-full min-h-[390px] sm:min-h-[420px] rounded-3xl">
+            
+            <!-- FRONT OF CARD -->
+            <div class="backface-hidden absolute inset-0 bg-gradient-to-b from-bgCard to-[#141416] border-2 border-bgElevated hover:border-zinc-600 rounded-3xl p-6 sm:p-10 flex flex-col justify-between shadow-2xl">
+              <div class="flex items-center justify-between text-xs text-zinc-400 font-mono">
+                <span><i class="fa-solid fa-layer-group mr-1.5 text-bioBlue"></i>TERM SIDE</span>
+                <span class="flex items-center gap-1.5 text-zinc-400"><i class="fa-solid fa-rotate"></i> Click or Space to Flip</span>
+              </div>
+
+              <!-- Center Term & Optional Word Parts Hint -->
+              <div class="my-auto text-center space-y-6 py-4">
+                <h3 id="fc-front-term" class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">Eukaryote</h3>
+                
+                <!-- Word Parts Hint Box -->
+                <div id="fc-front-hint-box" class="max-w-xl mx-auto pt-2">
+                  <p class="text-[11px] font-mono uppercase tracking-widest text-bioPurple mb-2.5">Word Part Breakdown Hint</p>
+                  <div id="fc-front-parts" class="flex flex-wrap justify-center gap-2"></div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-center">
+                <span class="text-xs text-zinc-500 font-medium">Think of the definition & how this word connects to another word on your sheet!</span>
+              </div>
+            </div>
+
+            <!-- BACK OF CARD -->
+            <div class="backface-hidden rotate-y-180 absolute inset-0 bg-gradient-to-b from-[#1D2228] to-[#121519] border-2 border-bioGreen/50 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl overflow-y-auto">
+              <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-0.5 rounded-md bg-bioGreen/20 text-bioGreen font-mono text-xs font-bold">DEFINITION & CONNECTIONS</span>
+                  <h4 id="fc-back-term" class="text-lg sm:text-xl font-bold text-white">Eukaryote</h4>
+                </div>
+                <button onclick="event.stopPropagation(); openVisualModalFromCard()" class="px-3 py-1 rounded-lg bg-bioBlue/20 hover:bg-bioBlue/30 text-bioBlue border border-bioBlue/40 text-xs font-semibold transition flex items-center gap-1.5">
+                  <i class="fa-solid fa-eye"></i> See Diagram
+                </button>
+              </div>
+
+              <div class="space-y-4 my-auto py-3">
+                <!-- Exact Worksheet Definition -->
+                <div class="bg-black/40 border border-white/10 rounded-2xl p-4">
+                  <div class="text-[11px] font-mono uppercase tracking-wider text-bioGreen mb-1 font-semibold">
+                    <i class="fa-solid fa-book-open mr-1"></i>Worksheet Definition
+                  </div>
+                  <p id="fc-back-definition" class="text-base sm:text-lg font-semibold text-white leading-relaxed"></p>
+                </div>
+
+                <!-- Word Parts (Prefix / Root / Suffix) -->
+                <div class="bg-black/40 border border-white/10 rounded-2xl p-4">
+                  <div class="text-[11px] font-mono uppercase tracking-wider text-bioPurple mb-2 font-semibold">
+                    <i class="fa-solid fa-puzzle-piece mr-1"></i>Word Parts (Prefix / Root / Suffix)
+                  </div>
+                  <div id="fc-back-parts" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <!-- Connection to Another Word -->
+                <div class="bg-bioBlue/10 border border-bioBlue/30 rounded-2xl p-4">
+                  <div class="text-[11px] font-mono uppercase tracking-wider text-bioCyan mb-1 font-semibold">
+                    <i class="fa-solid fa-link mr-1"></i>Connection to Another Word on List
+                  </div>
+                  <p id="fc-back-connection" class="text-sm sm:text-base text-zinc-200 leading-relaxed"></p>
+                </div>
+              </div>
+
+              <div class="text-center text-xs text-zinc-400 font-mono pt-1">
+                Click anywhere on card to flip back
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Navigation & Mastery Action Controls -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center pt-1">
+          <!-- Prev / Next -->
+          <div class="flex items-center justify-center sm:justify-start gap-2 order-2 sm:order-1">
+            <button onclick="prevFlashcard()" class="flex-1 sm:flex-initial px-4 py-3 rounded-2xl bg-bgCard hover:bg-bgElevated border border-bgElevated text-white font-semibold text-sm transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-arrow-left"></i> Prev
+            </button>
+            <button onclick="nextFlashcard()" class="flex-1 sm:flex-initial px-4 py-3 rounded-2xl bg-bgCard hover:bg-bgElevated border border-bgElevated text-white font-semibold text-sm transition flex items-center justify-center gap-2">
+              Next <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <!-- Flip Button Center -->
+          <div class="flex justify-center order-1 sm:order-2">
+            <button onclick="flipFlashcard()" class="w-full sm:w-auto px-6 py-3 rounded-2xl bg-bgElevated hover:bg-zinc-700 text-white font-semibold text-sm transition flex items-center justify-center gap-2 border border-zinc-600">
+              <i class="fa-solid fa-repeat text-bioBlue"></i> Flip Card
+            </button>
+          </div>
+
+          <!-- Mark Still Learning / Got It -->
+          <div class="flex items-center justify-center sm:justify-end gap-2 order-3">
+            <button onclick="markFlashcardStatus('learning')" class="flex-1 sm:flex-initial px-4 py-3 rounded-2xl bg-bioOrange/15 hover:bg-bioOrange/25 border border-bioOrange/40 text-bioOrange font-semibold text-sm transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-clock-rotate-left"></i> Still Learning
+            </button>
+            <button onclick="markFlashcardStatus('gotit')" class="flex-1 sm:flex-initial px-4 py-3 rounded-2xl bg-bioGreen/20 hover:bg-bioGreen/30 border border-bioGreen/50 text-bioGreen font-bold text-sm transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-check"></i> Got It!
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Term Jump Grid -->
+      <div class="bg-bgCard border border-bgElevated rounded-2xl p-5 mt-8">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-xs font-mono uppercase tracking-wider text-zinc-400 font-semibold">All 16 Worksheet Terms — Click any word to jump directly</h3>
+          <div class="flex items-center gap-3 text-xs">
+            <span class="flex items-center gap-1.5 text-bioGreen"><span class="w-2 h-2 rounded-full bg-bioGreen"></span> Got It</span>
+            <span class="flex items-center gap-1.5 text-bioOrange"><span class="w-2 h-2 rounded-full bg-bioOrange"></span> Still Learning</span>
+          </div>
+        </div>
+        <div id="fc-quick-jump" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         MODULE 2: VISUAL EXPLORER GUIDE (16 SVGs)
+         ========================================== -->
+    <section id="view-visuals" class="hidden space-y-6">
+      <!-- Filter & Search Header -->
+      <div class="bg-bgCard border border-bgElevated rounded-2xl p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-eye text-bioBlue"></i>
+            <h2 class="text-lg sm:text-xl font-bold text-white">Visual Biology Guide: Animated Diagrams & Word Roots</h2>
+          </div>
+          <p class="text-xs sm:text-sm text-zinc-400">Every vocab word from your worksheet explained visually with custom biological diagrams, prefix/root/suffix tags, and word connections.</p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <!-- Search Input -->
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs"></i>
+            <input id="visualSearchInput" oninput="renderVisualGrid()" type="text" placeholder="Search term, root (-kary-, -lys-)..." class="w-full sm:w-64 pl-9 pr-4 py-2 rounded-xl bg-black border border-bgElevated text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-bioBlue" />
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+            <button onclick="setVisualCategory('all')" id="vis-cat-all" class="vis-cat-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-bioBlue text-white whitespace-nowrap">All (16)</button>
+            <button onclick="setVisualCategory('Cells & Organelles')" id="vis-cat-cells" class="vis-cat-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-bgElevated text-zinc-300 hover:text-white whitespace-nowrap">Cells & Organelles</button>
+            <button onclick="setVisualCategory('Energy & Reactions')" id="vis-cat-energy" class="vis-cat-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-bgElevated text-zinc-300 hover:text-white whitespace-nowrap">Energy & Reactions</button>
+            <button onclick="setVisualCategory('Cell Processes')" id="vis-cat-processes" class="vis-cat-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-bgElevated text-zinc-300 hover:text-white whitespace-nowrap">Cell Processes</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 16 Card Visual Grid -->
+      <div id="visual-cards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    </section>
+
+    <!-- ==========================================
+         MODULE 3: QUIZLET-STYLE LEARN GAME
+         ========================================== -->
+    <section id="view-learn" class="hidden space-y-6">
+      <!-- Adaptive Mastery Dashboard Header -->
+      <div class="bg-bgCard border border-bgElevated rounded-2xl p-5">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-md bg-bioPurple/20 text-bioPurple border border-bioPurple/40 font-mono text-xs font-bold">ADAPTIVE ENGINE</span>
+              <h2 class="text-lg sm:text-xl font-bold text-white">Quizlet-Style Learn Mode</h2>
+            </div>
+            <p class="text-xs sm:text-sm text-zinc-400 mt-1">Answer each word in <span class="text-bioBlue font-semibold">Round 1 (Multiple Choice)</span> and <span class="text-bioGreen font-semibold">Round 2 (Type or Root-Match)</span> to reach 100% Mastery!</p>
+          </div>
+
+          <!-- Live Counters -->
+          <div class="grid grid-cols-4 gap-2 sm:gap-3">
+            <div class="bg-black/60 border border-bgElevated rounded-xl px-3 py-2 text-center">
+              <div class="text-[11px] font-mono text-zinc-400">NEW</div>
+              <div id="learn-count-new" class="text-lg font-mono font-bold text-zinc-200">16</div>
+            </div>
+            <div class="bg-bioBlue/10 border border-bioBlue/30 rounded-xl px-3 py-2 text-center">
+              <div class="text-[11px] font-mono text-bioBlue">FAMILIAR</div>
+              <div id="learn-count-familiar" class="text-lg font-mono font-bold text-bioBlue">0</div>
+            </div>
+            <div class="bg-bioGreen/10 border border-bioGreen/30 rounded-xl px-3 py-2 text-center">
+              <div class="text-[11px] font-mono text-bioGreen">MASTERED</div>
+              <div id="learn-count-mastered" class="text-lg font-mono font-bold text-bioGreen">0</div>
+            </div>
+            <div class="bg-bioOrange/10 border border-bioOrange/30 rounded-xl px-3 py-2 text-center">
+              <div class="text-[11px] font-mono text-bioOrange">STREAK</div>
+              <div id="learn-streak" class="text-lg font-mono font-bold text-bioOrange">0 🔥</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Overall Learn Progress Bar -->
+        <div class="mt-4 pt-3 border-t border-bgElevated flex items-center gap-3">
+          <div class="flex-1 h-2.5 bg-black rounded-full overflow-hidden border border-bgElevated">
+            <div id="learn-progress-bar" class="h-full bg-gradient-to-r from-bioPurple via-bioBlue to-bioGreen transition-all duration-500" style="width: 0%"></div>
+          </div>
+          <span id="learn-progress-pct" class="text-xs font-mono font-bold text-bioGreen">0% Mastered</span>
+          <button onclick="resetLearnGame()" class="px-3 py-1 rounded-lg bg-bgElevated hover:bg-zinc-700 text-xs text-zinc-300 font-semibold transition">
+            Reset Game
+          </button>
+        </div>
+      </div>
+
+      <!-- Learn Game Arena -->
+      <div id="learn-arena" class="max-w-3xl mx-auto"></div>
+    </section>
+
+    <!-- ==========================================
+         MODULE 4: FIVE RANDOMIZED MIXED PRACTICE TESTS
+         ========================================== -->
+    <section id="view-tests" class="hidden space-y-6">
+      <!-- Test Version Selector Header -->
+      <div class="bg-bgCard border border-bgElevated rounded-2xl p-5 space-y-4">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-graduation-cap text-bioGreen"></i>
+              <h2 class="text-lg sm:text-xl font-bold text-white">5 Randomized Mixed Word ↔ Definition Practice Tests</h2>
+            </div>
+            <p class="text-xs sm:text-sm text-zinc-400">
+              Every test version randomly mixes <span class="text-bioBlue font-semibold">Word → Pick the Definition</span> and <span class="text-bioPurple font-semibold">Definition → Pick the Word</span> questions with tricky altered definitions and close look-alike choices!
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Prompt Mix Mode Toggle -->
+            <div class="flex items-center bg-black p-1 rounded-xl border border-bgElevated">
+              <button onclick="setTestDirection('randomMix')" id="dir-btn-randomMix" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-bioGreen text-black transition">
+                <i class="fa-solid fa-shuffle mr-1"></i>Random Mix (Word & Def)
+              </button>
+              <button onclick="setTestDirection('wordToDef')" id="dir-btn-wordToDef" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-400 hover:text-white transition">
+                All Word → Def
+              </button>
+              <button onclick="setTestDirection('defToWord')" id="dir-btn-defToWord" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-400 hover:text-white transition">
+                All Def → Word
+              </button>
+            </div>
+
+            <button onclick="generateCurrentTest(false)" class="px-3.5 py-2 rounded-xl bg-bioBlue/20 hover:bg-bioBlue/30 border border-bioBlue/40 text-xs font-semibold text-bioCyan transition flex items-center gap-1.5">
+              <i class="fa-solid fa-dice"></i> Re-Randomize Mix
+            </button>
+          </div>
+        </div>
+
+        <!-- 5 Test Version Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <!-- Test 1 -->
+          <button onclick="selectTestVersion('1')" id="test-tab-1" class="text-left p-3.5 rounded-2xl border-2 border-bioGreen bg-bioGreen/10 transition flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-2 py-0.5 rounded-md bg-bioGreen text-black font-mono text-[11px] font-bold">TEST 1</span>
+                <span id="test-score-badge-1" class="text-[11px] font-mono text-zinc-400">16 Qs</span>
+              </div>
+              <h3 class="text-sm font-bold text-white mt-1">Worksheet Mix #1</h3>
+              <p class="text-[11px] text-zinc-300 mt-1">Random mix of exact worksheet definitions & close neighbor words.</p>
+            </div>
+          </button>
+
+          <!-- Test 2 -->
+          <button onclick="selectTestVersion('2')" id="test-tab-2" class="text-left p-3.5 rounded-2xl border-2 border-bgElevated bg-black/50 hover:border-zinc-600 transition flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-2 py-0.5 rounded-md bg-bioPurple/20 text-bioPurple border border-bioPurple/40 font-mono text-[11px] font-bold">TEST 2</span>
+                <span id="test-score-badge-2" class="text-[11px] font-mono text-zinc-400">16 Qs</span>
+              </div>
+              <h3 class="text-sm font-bold text-white mt-1">Tricky Word Twist #2</h3>
+              <p class="text-[11px] text-zinc-400 mt-1">Random mix with sneaky 1-word definition flips ("needs" vs "releases").</p>
+            </div>
+          </button>
+
+          <!-- Test 3 -->
+          <button onclick="selectTestVersion('3')" id="test-tab-3" class="text-left p-3.5 rounded-2xl border-2 border-bgElevated bg-black/50 hover:border-zinc-600 transition flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-2 py-0.5 rounded-md bg-bioBlue/20 text-bioBlue border border-bioBlue/40 font-mono text-[11px] font-bold">TEST 3</span>
+                <span id="test-score-badge-3" class="text-[11px] font-mono text-zinc-400">16 Qs</span>
+              </div>
+              <h3 class="text-sm font-bold text-white mt-1">Opposite Pairs Mix #3</h3>
+              <p class="text-[11px] text-zinc-400 mt-1">Random mix targeting confusable pairs (Aerobic/Anaerobic, etc.).</p>
+            </div>
+          </button>
+
+          <!-- Test 4 -->
+          <button onclick="selectTestVersion('4')" id="test-tab-4" class="text-left p-3.5 rounded-2xl border-2 border-bgElevated bg-black/50 hover:border-zinc-600 transition flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-2 py-0.5 rounded-md bg-bioOrange/20 text-bioOrange border border-bioOrange/40 font-mono text-[11px] font-bold">TEST 4</span>
+                <span id="test-score-badge-4" class="text-[11px] font-mono text-zinc-400">16 Qs</span>
+              </div>
+              <h3 class="text-sm font-bold text-white mt-1">Reworded Defs Mix #4</h3>
+              <p class="text-[11px] text-zinc-400 mt-1">Random mix blending paraphrased definitions & altered distractors.</p>
+            </div>
+          </button>
+
+          <!-- Test 5 -->
+          <button onclick="selectTestVersion('5')" id="test-tab-5" class="text-left p-3.5 rounded-2xl border-2 border-bgElevated bg-black/50 hover:border-zinc-600 transition flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-2 py-0.5 rounded-md bg-bioRed/20 text-bioRed border border-bioRed/40 font-mono text-[11px] font-bold">TEST 5</span>
+                <span id="test-score-badge-5" class="text-[11px] font-mono text-zinc-400">16 Qs</span>
+              </div>
+              <h3 class="text-sm font-bold text-white mt-1">Ultimate Exam Mix #5</h3>
+              <p class="text-[11px] text-zinc-400 mt-1">Final test simulation with maximum definition traps & random stems.</p>
+            </div>
+          </button>
+        </div>
+
+        <!-- Mix Breakdown Pill Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-bgElevated text-xs">
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="test-mix-summary" class="font-mono text-zinc-300">Current Mix: 8 Word → Definition • 8 Definition → Word</span>
+          </div>
+          <span class="text-zinc-400 font-mono">Tip: Click "Re-Randomize Mix" anytime for a brand-new random question & format shuffle!</span>
+        </div>
+      </div>
+
+      <!-- Test Score Summary Banner (Shown after submission) -->
+      <div id="test-results-banner" class="hidden bg-gradient-to-r from-bgCard via-[#19231E] to-bgCard border-2 border-bioGreen/50 rounded-2xl p-6"></div>
+
+      <!-- Questions List Container -->
+      <div id="test-questions-container" class="space-y-4"></div>
+
+      <!-- Submit Test Footer Bar -->
+      <div id="test-submit-footer" class="bg-bgCard border border-bgElevated rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-xs sm:text-sm text-zinc-300">
+          <span id="test-answered-status" class="font-mono font-bold text-bioBlue">0 / 16</span> questions answered. Read every word of each definition and choice carefully!
+        </div>
+        <button onclick="submitPracticeTest()" id="test-submit-btn" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-bioGreen hover:bg-emerald-400 text-black font-extrabold text-sm tracking-wide transition shadow-lg shadow-bioGreen/20">
+          <i class="fa-solid fa-check-double mr-1.5"></i> Grade My Test Now
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       MODAL: QUICK VISUAL DIAGRAM VIEWER
+       ========================================== -->
+  <div id="visualModal" onclick="closeVisualModal()" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div onclick="event.stopPropagation()" class="bg-bgCard border-2 border-bgElevated rounded-3xl max-w-2xl w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-bgElevated pb-3">
+        <div>
+          <span id="modal-category" class="text-xs font-mono text-bioBlue uppercase">Category</span>
+          <h3 id="modal-term" class="text-2xl font-extrabold text-white">Term</h3>
+        </div>
+        <button onclick="closeVisualModal()" class="w-9 h-9 rounded-xl bg-bgElevated hover:bg-zinc-700 text-zinc-300 flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div id="modal-svg-box" class="bg-black/70 border border-bgElevated rounded-2xl p-4 flex items-center justify-center"></div>
+      <div class="space-y-3">
+        <p id="modal-definition" class="text-sm sm:text-base text-white font-medium"></p>
+        <div id="modal-parts" class="flex flex-wrap gap-2"></div>
+        <div class="bg-bioBlue/10 border border-bioBlue/30 rounded-xl p-3 text-xs sm:text-sm text-zinc-200" id="modal-connection"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-bgElevated mt-12 py-6 text-center text-xs text-zinc-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>Built for <strong class="text-zinc-300">Jeffery's Unit 4 Science Test</strong> • Cell Organelles + Energy</span>
+      <span class="font-mono">All 16 Worksheet Terms • Definitions • Word Parts • Connections</span>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       APPLICATION DATA & LOGIC
+       ========================================== -->
+  <script>
+    /**************************************************************
+     * 1. WEB AUDIO SYNTHESIZER (NO EXTERNAL SOUND FILES NEEDED)
+     **************************************************************/
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) audioCtx = new AudioContextClass();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playSound(type) {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+
+        if (type === 'flip') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.exponentialRampToValueAtTime(580, now + 0.08);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.09);
+        } else if (type === 'correct') {
+          [523.25, 659.25, 783.99].forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.06);
+            gain.gain.setValueAtTime(0.11, now + idx * 0.06);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.06 + 0.18);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now + idx * 0.06);
+            osc.stop(now + idx * 0.06 + 0.19);
+          });
+        } else if (type === 'wrong') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.linearRampToValueAtTime(150, now + 0.22);
+          gain.gain.setValueAtTime(0.09, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        } else if (type === 'celebrate') {
+          [440, 554.37, 659.25, 880].forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+            gain.gain.setValueAtTime(0.12, now + idx * 0.08);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.28);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now + idx * 0.08);
+            osc.stop(now + idx * 0.08 + 0.3);
+          });
+        }
+      } catch (e) {
+        // Ignore audio errors if blocked by browser autoplay policy
+      }
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const icons = [document.getElementById('soundIconDesktop'), document.getElementById('soundIconMobile')];
+      icons.forEach(icon => {
+        if (!icon) return;
+        icon.className = soundEnabled
+          ? 'fa-solid fa-volume-high text-bioGreen'
+          : 'fa-solid fa-volume-xmark text-zinc-500';
+      });
+      if (soundEnabled) playSound('flip');
+    }
+
+    /**************************************************************
+     * 2. COMPLETE 16 VOCABULARY WORDS DATASET (FROM WORKSHEETS)
+     **************************************************************/
+    const VOCAB_DATA = [
+      {
+        id: 1,
+        term: "Eukaryote",
+        category: "Cells & Organelles",
+        definition: "An organism whose cells have a nucleus and other membrane-bound organelles.",
+        wordParts: [
+          { type: "Prefix", part: "eu-", meaning: "true" },
+          { type: "Root", part: "-kary-", meaning: "nucleus" },
+          { type: "Suffix", part: "-ote", meaning: "organism or cell" }
+        ],
+        connection: "Eukaryotes have a nucleus, while prokaryotes do not have a nucleus.",
+        connectedTerm: "Prokaryote",
+        etymologyQuestion: "Which term literally translates from its Greek word parts to 'true nucleus organism'?",
+        scenarioPrompt: "Under a microscope, Jeffery observes a plant leaf cell that contains a clearly visible nucleus and membrane-bound mitochondria. What type of organism is this?",
+        blankSentence: "__________ have a nucleus and membrane-bound organelles, while prokaryotes do not have a nucleus."
+      },
+      {
+        id: 2,
+        term: "Prokaryote",
+        category: "Cells & Organelles",
+        definition: "An organism whose cells do not have a nucleus or other membrane-bound organelles.",
+        wordParts: [
+          { type: "Prefix", part: "pro-", meaning: "before" },
+          { type: "Root", part: "-kary-", meaning: "nucleus" },
+          { type: "Suffix", part: "-ote", meaning: "organism or cell" }
+        ],
+        connection: "Prokaryotes are simpler cells without a nucleus, while eukaryotes have a nucleus and other organelles.",
+        connectedTerm: "Eukaryote",
+        etymologyQuestion: "The prefix 'pro-' means 'before' and '-kary-' means 'nucleus'. Which word describes simpler cells that evolved 'before a nucleus'?",
+        scenarioPrompt: "A single-celled bacterium has free-floating circular DNA in its cytoplasm and lacks a nucleus or membrane-bound organelles. This cell is a:",
+        blankSentence: "__________ are simpler cells without a nucleus, while eukaryotes have a nucleus and other organelles."
+      },
+      {
+        id: 3,
+        term: "Organelle",
+        category: "Cells & Organelles",
+        definition: "A small structure inside a cell that has a specific job.",
+        wordParts: [
+          { type: "Root", part: "-organ-", meaning: "specialized structure / tool" },
+          { type: "Suffix", part: "-elle", meaning: "small / miniature" },
+          { type: "Sheet Note", part: "roots on sheet", meaning: "works with -glyco- / -lys- processes in cells" }
+        ],
+        connection: "Eukaryotic cells have membrane-bound organelles, like the mitochondria, that perform important jobs.",
+        connectedTerm: "Eukaryote",
+        etymologyQuestion: "Which vocabulary word means a 'tiny organ' or small specialized structure inside a cell that performs a specific job?",
+        scenarioPrompt: "Mitochondria, chloroplasts, and ribosomes each perform a dedicated function inside a cell. What general term describes these small internal structures?",
+        blankSentence: "Eukaryotic cells have membrane-bound __________, like the mitochondria, that perform important jobs."
+      },
+      {
+        id: 4,
+        term: "Semi-permeable",
+        category: "Cells & Organelles",
+        definition: "A membrane that allows some substances to pass through but blocks others.",
+        wordParts: [
+          { type: "Prefix", part: "semi-", meaning: "partly or half" },
+          { type: "Root", part: "-perme-", meaning: "pass through" },
+          { type: "Suffix", part: "-able", meaning: "able to" }
+        ],
+        connection: "Many organelles have semi-permeable membranes that control what enters and leaves them.",
+        connectedTerm: "Organelle",
+        etymologyQuestion: "Combining 'semi-' (partly), '-perme-' (pass through), and '-able' (able to) gives which term describing a selective cell membrane?",
+        scenarioPrompt: "A cell membrane allows small oxygen and water molecules to cross easily, while blocking large charged particles from entering. This membrane is:",
+        blankSentence: "Many organelles have __________ membranes that control what enters and leaves them."
+      },
+      {
+        id: 5,
+        term: "ATP Synthase",
+        category: "Energy & Reactions",
+        definition: "An enzyme that makes ATP, which provides energy for cells.",
+        wordParts: [
+          { type: "Prefix", part: "syn-", meaning: "together" },
+          { type: "Root", part: "-thes-", meaning: "putting together" },
+          { type: "Suffix", part: "-ase", meaning: "enzyme" }
+        ],
+        connection: "ATP synthase helps make ATP during cellular respiration, giving cells energy to function.",
+        connectedTerm: "Cellular Respiration",
+        etymologyQuestion: "In biology, the suffix '-ase' indicates an enzyme, and 'syn-' + '-thes-' means 'putting together'. Which enzyme puts ADP and phosphate together to make ATP?",
+        scenarioPrompt: "During cellular respiration, a spinning molecular protein in the inner mitochondrial membrane builds ATP molecules to power the cell. What is this enzyme called?",
+        blankSentence: "__________ helps make ATP during cellular respiration, giving cells energy to function."
+      },
+      {
+        id: 6,
+        term: "Autolysis",
+        category: "Cell Processes",
+        definition: "The process where a cell breaks down its own parts using enzymes.",
+        wordParts: [
+          { type: "Prefix", part: "auto-", meaning: "self" },
+          { type: "Root", part: "-lys-", meaning: "breaking apart" }
+        ],
+        connection: "Both autolysis and glycolysis involve breaking things down. Autolysis breaks down cell parts, while glycolysis breaks down glucose.",
+        connectedTerm: "Glycolysis",
+        etymologyQuestion: "Using the prefix 'auto-' (self) and the root '-lys-' (breaking apart), what do we call a cell self-destructing or breaking down its own parts?",
+        scenarioPrompt: "When a cell is severely damaged or worn out, its lysosomes release digestive enzymes to break down the cell's own structures. This process is:",
+        blankSentence: "Both __________ and glycolysis involve breaking things down: one breaks down its own cell parts, while the other breaks down glucose."
+      },
+      {
+        id: 7,
+        term: "Translation",
+        category: "Cell Processes",
+        definition: "The process where ribosomes read mRNA instructions to make proteins.",
+        wordParts: [
+          { type: "Prefix", part: "trans-", meaning: "across" },
+          { type: "Root", part: "-lat-", meaning: "carry" },
+          { type: "Suffix", part: "-ion", meaning: "process" }
+        ],
+        connection: "Translation happens at ribosomes, which are organelles that help cells make proteins.",
+        connectedTerm: "Organelle",
+        etymologyQuestion: "Built from 'trans-' (across), '-lat-' (carry), and '-ion' (process), which process carries the genetic message across from mRNA into an amino acid protein chain?",
+        scenarioPrompt: "A ribosome attaches to a strand of messenger RNA (mRNA) and reads its codons to assemble a polypeptide protein. What is this process called?",
+        blankSentence: "__________ happens at ribosomes, which are organelles that read mRNA instructions to help cells make proteins."
+      },
+      {
+        id: 8,
+        term: "Phagocytosis",
+        category: "Cell Processes",
+        definition: "The process where a cell surrounds and takes in large particles, such as bacteria.",
+        wordParts: [
+          { type: "Root", part: "-phag-", meaning: "eat" },
+          { type: "Root", part: "-cyto-", meaning: "cell" },
+          { type: "Suffix", part: "-osis", meaning: "process" }
+        ],
+        connection: "Phagocytosis allows cells to bring in large particles by using their cell membrane, which is semi-permeable and controls what enters the cell.",
+        connectedTerm: "Semi-permeable",
+        etymologyQuestion: "The root '-phag-' means 'eat', '-cyto-' means 'cell', and '-osis' means 'process'. Which term literally means the process of 'cell eating'?",
+        scenarioPrompt: "A white blood cell encounters an invading bacterium, extends its plasma membrane around the bacterium, and engulfs it inside a vesicle. This process is:",
+        blankSentence: "__________ allows cells to surround and bring in large particles like bacteria by using their semi-permeable cell membrane."
+      },
+      {
+        id: 9,
+        term: "Photosynthesis",
+        category: "Energy & Reactions",
+        definition: "The process where plants use sunlight, water, and carbon dioxide to make glucose (sugar) and oxygen.",
+        wordParts: [
+          { type: "Prefix", part: "photo-", meaning: "light" },
+          { type: "Prefix", part: "syn-", meaning: "together" },
+          { type: "Root", part: "-thes-", meaning: "putting together" },
+          { type: "Suffix", part: "-is", meaning: "process" }
+        ],
+        connection: "Photosynthesis makes glucose and oxygen, which cellular respiration uses to release energy for cells.",
+        connectedTerm: "Cellular Respiration",
+        etymologyQuestion: "Combining 'photo-' (light), 'syn-' (together), and '-thes-' (putting together) produces which term for using light to put carbon dioxide and water together into sugar?",
+        scenarioPrompt: "Inside a plant's chloroplasts, light energy is captured to convert water (H2O) and carbon dioxide (CO2) into glucose and oxygen. This process is:",
+        blankSentence: "__________ makes glucose and oxygen using sunlight, which cellular respiration then uses to release energy for cells."
+      },
+      {
+        id: 10,
+        term: "Endosymbiosis",
+        category: "Cells & Organelles",
+        definition: "When one organism lives inside another organism and they have a close relationship. This helps explain how mitochondria and chloroplasts evolved.",
+        wordParts: [
+          { type: "Prefix", part: "endo-", meaning: "inside" },
+          { type: "Prefix", part: "sym-", meaning: "together" },
+          { type: "Root", part: "-bio-", meaning: "life" },
+          { type: "Suffix", part: "-osis", meaning: "process or condition" }
+        ],
+        connection: "Endosymbiosis explains how eukaryotic cells developed mitochondria and chloroplasts from bacteria that lived inside other cells.",
+        connectedTerm: "Eukaryote",
+        etymologyQuestion: "From 'endo-' (inside), 'sym-' (together), and '-bio-' (life), which term means 'living together inside' and explains the origin of mitochondria?",
+        scenarioPrompt: "Billions of years ago, a large host cell engulfed an aerobic prokaryote. Instead of being digested, the bacterium lived inside the host and evolved into the mitochondrion. This is:",
+        blankSentence: "__________ explains how eukaryotic cells developed mitochondria and chloroplasts from bacteria that lived inside other cells."
+      },
+      {
+        id: 11,
+        term: "Endergonic",
+        category: "Energy & Reactions",
+        definition: "A chemical reaction that needs energy to happen.",
+        wordParts: [
+          { type: "Prefix", part: "en- / endo-", meaning: "in / into (sheet: ex-in)" },
+          { type: "Root", part: "-erg-", meaning: "work or energy" },
+          { type: "Suffix", part: "-ic", meaning: "relating to" }
+        ],
+        connection: "Photosynthesis is endergonic because it requires energy from sunlight to make glucose.",
+        connectedTerm: "Photosynthesis",
+        etymologyQuestion: "With '-erg-' meaning 'work or energy' and the prefix meaning 'energy going IN', which term describes a chemical reaction that absorbs/needs energy to happen?",
+        scenarioPrompt: "Photosynthesis cannot happen in the dark because building glucose molecules requires a continuous input of sunlight energy. Therefore, photosynthesis is an:",
+        blankSentence: "Photosynthesis is __________ because it requires energy from sunlight to happen and make glucose."
+      },
+      {
+        id: 12,
+        term: "Exergonic",
+        category: "Energy & Reactions",
+        definition: "A chemical reaction that releases energy.",
+        wordParts: [
+          { type: "Prefix", part: "ex-", meaning: "out" },
+          { type: "Root", part: "-erg-", meaning: "work or energy" },
+          { type: "Suffix", part: "-ic", meaning: "relating to" }
+        ],
+        connection: "Cellular respiration is exergonic because it releases energy from glucose that cells can use.",
+        connectedTerm: "Cellular Respiration",
+        etymologyQuestion: "Combining 'ex-' (out), '-erg-' (work or energy), and '-ic' (relating to) gives which word for a reaction where energy goes OUT (is released)?",
+        scenarioPrompt: "When a cell breaks the chemical bonds of glucose during cellular respiration, energy exits the reaction to form ATP and heat. What kind of reaction is this?",
+        blankSentence: "Cellular respiration is __________ because it releases energy out from glucose that cells can use."
+      },
+      {
+        id: 13,
+        term: "Cellular Respiration",
+        category: "Energy & Reactions",
+        definition: "The process where cells break down glucose to release energy and make ATP.",
+        wordParts: [
+          { type: "Root", part: "-cell-", meaning: "cell" },
+          { type: "Suffix", part: "-ular", meaning: "relating to" },
+          { type: "Prefix", part: "re-", meaning: "again or back" },
+          { type: "Root", part: "-spir-", meaning: "breath" },
+          { type: "Suffix", part: "-ion", meaning: "process" }
+        ],
+        connection: "Glycolysis is the first step of cellular respiration because it breaks down glucose to help release energy.",
+        connectedTerm: "Glycolysis",
+        etymologyQuestion: "With '-cell-' + '-ular' (relating to a cell) and '-spir-' (breath), which process describes how cells 'breathe' by breaking down glucose to make ATP?",
+        scenarioPrompt: "After you eat a meal, your mitochondria use oxygen to break down glucose molecules and generate large amounts of ATP energy. This process is:",
+        blankSentence: "Glycolysis is the first step of __________ because it breaks down glucose to release energy and make ATP."
+      },
+      {
+        id: 14,
+        term: "Aerobic",
+        category: "Energy & Reactions",
+        definition: "A process that requires oxygen to happen.",
+        wordParts: [
+          { type: "Root", part: "aero-", meaning: "air or oxygen" },
+          { type: "Root", part: "-bio-", meaning: "life" },
+          { type: "Suffix", part: "-ic", meaning: "relating to" }
+        ],
+        connection: "Aerobic cellular respiration uses oxygen to help cells break down glucose and make ATP.",
+        connectedTerm: "Cellular Respiration",
+        etymologyQuestion: "Built from the root 'aero-' (air or oxygen) and '-bio-' (life), which word describes a biological process that requires oxygen?",
+        scenarioPrompt: "The main stages of cellular respiration inside the mitochondria can only run when plenty of oxygen gas (O2) is present. Therefore, this pathway is:",
+        blankSentence: "__________ cellular respiration requires oxygen to help cells break down glucose and make maximum ATP."
+      },
+      {
+        id: 15,
+        term: "Glycolysis",
+        category: "Cell Processes",
+        definition: "The process where glucose is broken into two smaller molecules to release some energy.",
+        wordParts: [
+          { type: "Root", part: "-glyco-", meaning: "sugar" },
+          { type: "Root", part: "-lys-", meaning: "breaking apart" }
+        ],
+        connection: "Glycolysis is anaerobic because it does not require oxygen to break down glucose.",
+        connectedTerm: "Anaerobic",
+        etymologyQuestion: "Combining '-glyco-' (sugar) and '-lys-' (breaking apart) literally translates to 'sugar splitting'. Which vocab word is this?",
+        scenarioPrompt: "In the cytoplasm, a 6-carbon glucose sugar molecule is split in half into two smaller 3-carbon pyruvate molecules, releasing a small amount of ATP without needing oxygen. This step is:",
+        blankSentence: "__________ is the process where glucose (sugar) is broken apart into two smaller molecules, and it is anaerobic."
+      },
+      {
+        id: 16,
+        term: "Anaerobic",
+        category: "Energy & Reactions",
+        definition: "A process that does not require oxygen.",
+        wordParts: [
+          { type: "Prefix", part: "an-", meaning: "without" },
+          { type: "Root", part: "aero-", meaning: "air or oxygen" },
+          { type: "Root", part: "-bio-", meaning: "life" },
+          { type: "Suffix", part: "-ic", meaning: "relating to" }
+        ],
+        connection: "Aerobic processes need oxygen, while anaerobic processes do not need oxygen.",
+        connectedTerm: "Aerobic",
+        etymologyQuestion: "Adding the prefix 'an-' (without) to 'aero-' (air or oxygen) gives which term for a process that happens WITHOUT oxygen?",
+        scenarioPrompt: "Glycolysis and fermentation can continue making ATP in muscle cells even when oxygen levels drop to zero. Because they do not require oxygen, they are:",
+        blankSentence: "Aerobic processes need oxygen, while __________ processes do not require oxygen."
+      }
+    ];
+
+    // Tricky modified/altered definitions and close neighbor IDs for pure Word-to-Definition Practice Tests 1, 2, and 3
+    const TRICKY_DEF_BANK = {
+      1: { // Eukaryote
+        similarIds: [2, 3, 10],
+        trickyDefs: [
+          "An organism whose cells do not have a nucleus or other membrane-bound organelles.",
+          "An organism whose cells have a cell wall and ribosomes, but lack a true nucleus.",
+          "A small structure inside a cell that has a specific job and surrounds the nucleus."
+        ],
+        paraphrasedDef: "A complex organism made of cells that contain a true nucleus and membrane-bound organelles.",
+        trapNote: "Watch out for the word 'NOT'! Eukaryotes HAVE a nucleus and membrane-bound organelles (Prokaryotes do NOT)."
+      },
+      2: { // Prokaryote
+        similarIds: [1, 3, 8],
+        trickyDefs: [
+          "An organism whose cells have a nucleus and other membrane-bound organelles.",
+          "An organism that lives inside another organism to help make mitochondria and chloroplasts.",
+          "An organism whose cells have a nucleus, but do not have a cell membrane."
+        ],
+        paraphrasedDef: "A simpler unicellular organism whose cells lack a nucleus and lack membrane-bound organelles.",
+        trapNote: "Check if it says 'have a nucleus' vs 'do NOT have a nucleus'. Prokaryotes do NOT have a nucleus."
+      },
+      3: { // Organelle
+        similarIds: [1, 4, 5],
+        trickyDefs: [
+          "An enzyme inside a cell that makes ATP to provide energy for the organism.",
+          "A large organism whose cells do not have a nucleus or membrane-bound structures.",
+          "A membrane that blocks all substances from entering or leaving the inside of a cell."
+        ],
+        paraphrasedDef: "A specialized mini-structure inside a cell (such as a mitochondrion or ribosome) that performs a specific job.",
+        trapNote: "An organelle is a small STRUCTURE inside a cell with a specific job, not an enzyme or a whole organism."
+      },
+      4: { // Semi-permeable
+        similarIds: [8, 3, 6],
+        trickyDefs: [
+          "A membrane that allows ALL substances to pass through freely without blocking anything.",
+          "A rigid barrier that completely blocks all substances from entering or leaving the cell.",
+          "The process where a cell membrane surrounds and eats large particles like bacteria."
+        ],
+        paraphrasedDef: "A selective membrane that lets certain molecules pass through while blocking other substances.",
+        trapNote: "'Semi-' means partly! It allows SOME substances to pass through, not 'all' or 'none'."
+      },
+      5: { // ATP Synthase
+        similarIds: [13, 7, 6],
+        trickyDefs: [
+          "An enzyme that breaks down ATP into glucose when a cell needs to rest.",
+          "The process where ribosomes read mRNA instructions to build enzymes and proteins.",
+          "An organelle that uses sunlight and carbon dioxide to break apart sugar molecules."
+        ],
+        paraphrasedDef: "A specialized enzyme (-ase) that builds ATP molecules to supply usable energy for cells.",
+        trapNote: "ATP Synthase is an ENZYME that MAKES ATP (it does not break down ATP or read mRNA)."
+      },
+      6: { // Autolysis
+        similarIds: [15, 8, 13],
+        trickyDefs: [
+          "The process where glucose is broken into two smaller molecules to release some energy.",
+          "The process where a cell surrounds and takes in large outside particles, such as bacteria.",
+          "The process where a cell builds new organelles using enzymes and sunlight."
+        ],
+        paraphrasedDef: "Self-destruction where a cell uses digestive enzymes to break down its own worn-out parts.",
+        trapNote: "Don't confuse Autolysis with Glycolysis! Autolysis breaks down a cell's OWN PARTS using enzymes; Glycolysis breaks down GLUCOSE."
+      },
+      7: { // Translation
+        similarIds: [5, 8, 3],
+        trickyDefs: [
+          "The process where mitochondria read DNA instructions to make glucose and oxygen.",
+          "The process where ribosomes break down old proteins into mRNA instructions.",
+          "The process where a cell membrane carries large bacteria across into the nucleus."
+        ],
+        paraphrasedDef: "The protein-building process in which ribosomes read mRNA instructions to assemble proteins.",
+        trapNote: "In Translation, RIBOSOMES read mRNA to MAKE PROTEINS (not mitochondria making glucose)."
+      },
+      8: { // Phagocytosis
+        similarIds: [6, 4, 10],
+        trickyDefs: [
+          "The process where a cell breaks down its own internal parts using digestive enzymes.",
+          "The process where a cell pushes out small water and oxygen molecules through pores.",
+          "When one bacterium lives peacefully inside another cell and evolves into an organelle."
+        ],
+        paraphrasedDef: "Cell eating: the process in which a cell surrounds and engulfs large particles such as bacteria.",
+        trapNote: "Phagocytosis is 'cell eating'—surrounding and taking IN large particles like bacteria (not breaking down its own parts)."
+      },
+      9: { // Photosynthesis
+        similarIds: [13, 11, 15],
+        trickyDefs: [
+          "The process where cells use glucose and oxygen to make sunlight, water, and carbon dioxide.",
+          "The process where cells break down glucose to release energy and make ATP.",
+          "The process where plants use oxygen and ATP to break apart carbon dioxide in the dark."
+        ],
+        paraphrasedDef: "The light-powered process where plants combine sunlight, water, and carbon dioxide to produce glucose (sugar) and oxygen.",
+        trapNote: "Check the inputs and outputs! Photosynthesis USES sunlight, water, and CO₂ to MAKE glucose and oxygen (the reverse is Cellular Respiration)."
+      },
+      10: { // Endosymbiosis
+        similarIds: [8, 1, 2],
+        trickyDefs: [
+          "The process where a cell surrounds, digests, and destroys invading bacteria for food.",
+          "When two cells compete against each other outside until one loses its nucleus.",
+          "The process where a eukaryotic cell splits its nucleus into two prokaryotic bacteria."
+        ],
+        paraphrasedDef: "A close relationship where one organism lives inside another, explaining how mitochondria and chloroplasts evolved.",
+        trapNote: "Endosymbiosis is living TOGETHER inside a close relationship (explaining how mitochondria & chloroplasts evolved), not digesting bacteria."
+      },
+      11: { // Endergonic
+        similarIds: [12, 14, 9],
+        trickyDefs: [
+          "A chemical reaction that releases energy out into the cell.",
+          "A chemical reaction that requires oxygen gas in order to happen.",
+          "A chemical reaction that happens automatically without needing any energy input."
+        ],
+        paraphrasedDef: "An energy-absorbing chemical reaction that requires an input of energy in order to happen.",
+        trapNote: "Endergonic NEEDS/absorbs energy to happen, whereas Exergonic RELEASES energy."
+      },
+      12: { // Exergonic
+        similarIds: [11, 13, 16],
+        trickyDefs: [
+          "A chemical reaction that needs energy from sunlight to happen.",
+          "A chemical reaction that stores energy inside glucose without releasing any heat or ATP.",
+          "A chemical reaction that can only happen when oxygen is completely absent."
+        ],
+        paraphrasedDef: "An energy-releasing chemical reaction that gives off energy (such as cellular respiration).",
+        trapNote: "Exergonic (ex- = out) RELEASES energy, whereas Endergonic NEEDS energy."
+      },
+      13: { // Cellular Respiration
+        similarIds: [9, 15, 5],
+        trickyDefs: [
+          "The process where plants use sunlight, water, and carbon dioxide to make glucose and oxygen.",
+          "The process where ATP is broken down to build large glucose sugar molecules.",
+          "The process where ribosomes use oxygen to read mRNA and build cell membranes."
+        ],
+        paraphrasedDef: "The energy-releasing process where cells break down glucose sugar to release energy and make ATP.",
+        trapNote: "Cellular Respiration BREAKS DOWN glucose to make ATP (Photosynthesis MAKES glucose using sunlight)."
+      },
+      14: { // Aerobic
+        similarIds: [16, 13, 11],
+        trickyDefs: [
+          "A process that does not require oxygen to happen.",
+          "A process that only happens in the presence of sunlight and carbon dioxide.",
+          "A chemical reaction that breaks apart enzymes when oxygen is removed."
+        ],
+        paraphrasedDef: "Any biological process or cellular pathway that requires oxygen in order to take place.",
+        trapNote: "Aerobic REQUIRES oxygen (aero- = air/oxygen). Anaerobic does NOT require oxygen."
+      },
+      15: { // Glycolysis
+        similarIds: [6, 13, 9],
+        trickyDefs: [
+          "The process where two small molecules are joined together using oxygen to make glucose.",
+          "The process where a cell breaks down its own worn-out organelles using enzymes.",
+          "The process where plants use sunlight to split water molecules into oxygen gas."
+        ],
+        paraphrasedDef: "The sugar-splitting process where glucose is broken into two smaller molecules to release some energy.",
+        trapNote: "Glycolysis (-glyco- = sugar, -lys- = break apart) breaks GLUCOSE into two smaller molecules, not cell organelles."
+      },
+      16: { // Anaerobic
+        similarIds: [14, 15, 12],
+        trickyDefs: [
+          "A process that requires oxygen to happen.",
+          "A process that requires sunlight and water to happen inside chloroplasts.",
+          "A chemical reaction that cannot release any energy unless oxygen is present."
+        ],
+        paraphrasedDef: "Any biological process (such as glycolysis) that takes place without requiring oxygen.",
+        trapNote: "The prefix 'an-' means WITHOUT! Anaerobic does NOT require oxygen."
+      }
+    };
+
+    /**************************************************************
+     * 3. CUSTOM BIOLOGICAL SVG DIAGRAMS FOR ALL 16 WORDS
+     **************************************************************/
+    function getDiagramSVG(termId) {
+      switch (termId) {
+        case 1: // Eukaryote
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <defs>
+              <radialGradient id="eukGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#BF5AF2" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#0A84FF" stop-opacity="0.08"/>
+              </radialGradient>
+            </defs>
+            <!-- Outer Plasma Membrane -->
+            <ellipse cx="180" cy="95" rx="135" ry="72" fill="url(#eukGrad)" stroke="#0A84FF" stroke-width="3"/>
+            <!-- Glowing True Nucleus -->
+            <circle cx="155" cy="95" r="36" fill="#BF5AF2" fill-opacity="0.3" stroke="#BF5AF2" stroke-width="3" class="svg-pulse"/>
+            <circle cx="155" cy="95" r="14" fill="#BF5AF2" fill-opacity="0.8"/>
+            <!-- DNA Chromatin inside nucleus -->
+            <path d="M138 85 Q155 70 170 88 T145 108" fill="none" stroke="#F5F5F7" stroke-width="1.5"/>
+            <!-- Mitochondria Organelle -->
+            <g transform="translate(230, 62)">
+              <ellipse cx="0" cy="0" rx="22" ry="11" fill="#FF9F0A" fill-opacity="0.25" stroke="#FF9F0A" stroke-width="2"/>
+              <path d="M-14 0 L-8 -5 L-2 5 L4 -5 L10 5 L15 0" fill="none" stroke="#FF9F0A" stroke-width="1.8"/>
+            </g>
+            <!-- ER / Golgi Organelles -->
+            <path d="M90 70 Q105 60 112 75 Q95 85 110 98" fill="none" stroke="#34C759" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="225" cy="122" rx="18" ry="9" fill="#34C759" fill-opacity="0.25" stroke="#34C759" stroke-width="2"/>
+            <!-- Labels -->
+            <text x="155" y="46" text-anchor="middle" fill="#BF5AF2" font-size="11" font-family="JetBrains Mono" font-weight="bold">TRUE NUCLEUS (eu-kary-)</text>
+            <text x="255" y="45" text-anchor="middle" fill="#FF9F0A" font-size="10" font-family="JetBrains Mono">Organelles</text>
+            <text x="180" y="182" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">Complex cell WITH a membrane-bound nucleus</text>
+          </svg>`;
+
+        case 2: // Prokaryote
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- Capsule Body -->
+            <rect x="65" y="48" width="190" height="90" rx="45" fill="#34C759" fill-opacity="0.12" stroke="#34C759" stroke-width="3"/>
+            <rect x="73" y="56" width="174" height="74" rx="37" fill="none" stroke="#34C759" stroke-width="1.2" stroke-dasharray="4 3"/>
+            <!-- Loose Nucleoid DNA (NO Nucleus) -->
+            <path d="M115 90 Q135 65 160 88 T195 82 T170 110 T125 105 Z" fill="none" stroke="#FF9F0A" stroke-width="2.5"/>
+            <!-- Ribosome dots -->
+            <circle cx="98" cy="80" r="3" fill="#64D2FF"/>
+            <circle cx="215" cy="78" r="3" fill="#64D2FF"/>
+            <circle cx="205" cy="108" r="3" fill="#64D2FF"/>
+            <circle cx="110" cy="112" r="3" fill="#64D2FF"/>
+            <!-- Flagellum tail -->
+            <path d="M255 93 Q285 68 305 95 T348 85" fill="none" stroke="#34C759" stroke-width="3" stroke-linecap="round"/>
+            <!-- NO Nucleus Badge -->
+            <g transform="translate(160, 30)">
+              <rect x="-75" y="-14" width="150" height="22" rx="6" fill="#FF453A" fill-opacity="0.2" stroke="#FF453A"/>
+              <text x="0" y="1" text-anchor="middle" fill="#FF453A" font-size="11" font-family="JetBrains Mono" font-weight="bold">NO NUCLEUS (pro-kary-)</text>
+            </g>
+            <text x="160" y="162" text-anchor="middle" fill="#FF9F0A" font-size="11" font-family="JetBrains Mono">Loose DNA in cytoplasm</text>
+            <text x="180" y="182" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">Simpler unicellular organism (like bacteria)</text>
+          </svg>`;
+
+        case 3: // Organelle
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- 3 Specialized Organelle Compartments -->
+            <g transform="translate(25, 38)">
+              <rect x="0" y="0" width="92" height="105" rx="14" fill="#1C1C1E" stroke="#FF9F0A" stroke-width="2"/>
+              <ellipse cx="46" cy="42" rx="28" ry="15" fill="#FF9F0A" fill-opacity="0.25" stroke="#FF9F0A" stroke-width="2"/>
+              <path d="M26 42 L34 34 L42 49 L50 34 L58 49 L66 42" fill="none" stroke="#FF9F0A" stroke-width="2"/>
+              <text x="46" y="78" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="bold">Mitochondria</text>
+              <text x="46" y="93" text-anchor="middle" fill="#FF9F0A" font-size="9" font-family="JetBrains Mono">Job: Makes ATP</text>
+            </g>
+            <g transform="translate(134, 38)">
+              <rect x="0" y="0" width="92" height="105" rx="14" fill="#1C1C1E" stroke="#34C759" stroke-width="2"/>
+              <ellipse cx="46" cy="42" rx="28" ry="15" fill="#34C759" fill-opacity="0.25" stroke="#34C759" stroke-width="2"/>
+              <circle cx="36" cy="42" r="6" fill="#34C759"/>
+              <circle cx="46" cy="42" r="6" fill="#34C759"/>
+              <circle cx="56" cy="42" r="6" fill="#34C759"/>
+              <text x="46" y="78" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="bold">Chloroplast</text>
+              <text x="46" y="93" text-anchor="middle" fill="#34C759" font-size="9" font-family="JetBrains Mono">Job: Makes Sugar</text>
+            </g>
+            <g transform="translate(243, 38)">
+              <rect x="0" y="0" width="92" height="105" rx="14" fill="#1C1C1E" stroke="#BF5AF2" stroke-width="2"/>
+              <circle cx="46" cy="38" r="14" fill="#BF5AF2" fill-opacity="0.35" stroke="#BF5AF2" stroke-width="2"/>
+              <ellipse cx="46" cy="50" rx="18" ry="8" fill="#BF5AF2" fill-opacity="0.6"/>
+              <text x="46" y="78" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="bold">Ribosome</text>
+              <text x="46" y="93" text-anchor="middle" fill="#BF5AF2" font-size="9" font-family="JetBrains Mono">Job: Proteins</text>
+            </g>
+            <text x="180" y="22" text-anchor="middle" fill="#64D2FF" font-size="11" font-family="JetBrains Mono" font-weight="bold">SMALL STRUCTURES WITH SPECIFIC JOBS</text>
+            <text x="180" y="175" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">Each organelle is a specialized mini-department inside the cell</text>
+          </svg>`;
+
+        case 4: // Semi-permeable
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- Membrane Bilayer Bar -->
+            <rect x="30" y="82" width="300" height="28" rx="6" fill="#0A84FF" fill-opacity="0.18" stroke="#0A84FF" stroke-width="2" stroke-dasharray="10 6"/>
+            <text x="180" y="100" text-anchor="middle" fill="#64D2FF" font-size="10" font-family="JetBrains Mono" font-weight="bold">SEMI-PERMEABLE MEMBRANE</text>
+            <!-- Small Green Molecules Passing Through -->
+            <circle cx="95" cy="40" r="7" fill="#34C759"/>
+            <path d="M95 52 L95 135" stroke="#34C759" stroke-width="2.5" stroke-dasharray="3 3"/>
+            <polygon points="95,142 90,132 100,132" fill="#34C759"/>
+            <circle cx="95" cy="154" r="7" fill="#34C759"/>
+            <text x="95" y="25" text-anchor="middle" fill="#34C759" font-size="10" font-family="JetBrains Mono">PASSES (O₂/H₂O)</text>
+
+            <!-- Large Red Molecule Blocked -->
+            <circle cx="255" cy="42" r="15" fill="#FF453A" fill-opacity="0.3" stroke="#FF453A" stroke-width="2.5"/>
+            <path d="M255 60 L255 78 L275 55" fill="none" stroke="#FF453A" stroke-width="2.5"/>
+            <text x="255" y="46" text-anchor="middle" fill="#FF453A" font-size="10" font-weight="bold">BIG</text>
+            <text x="255" y="22" text-anchor="middle" fill="#FF453A" font-size="10" font-family="JetBrains Mono">BLOCKED!</text>
+            <text x="180" y="180" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">Partly (semi-) able (-able) to let substances pass through (-perme-)</text>
+          </svg>`;
+
+        case 5: // ATP Synthase
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- Inner Mitochondrial Membrane -->
+            <line x1="30" y1="75" x2="330" y2="75" stroke="#0A84FF" stroke-width="6" stroke-linecap="round"/>
+            <!-- ATP Synthase Enzyme Stator & Rotor -->
+            <rect x="155" y="48" width="50" height="45" rx="8" fill="#BF5AF2" stroke="#F5F5F7" stroke-width="2"/>
+            <circle cx="180" cy="118" r="24" fill="#34C759" fill-opacity="0.25" stroke="#34C759" stroke-width="3" class="svg-pulse"/>
+            <text x="180" y="122" text-anchor="middle" fill="#34C759" font-size="10" font-family="JetBrains Mono" font-weight="bold">-ASE</text>
+            <!-- H+ Flow -->
+            <text x="180" y="34" text-anchor="middle" fill="#64D2FF" font-size="11" font-family="JetBrains Mono">H⁺ Ions Flow In ↓</text>
+            <!-- ADP + Pi -> ATP -->
+            <text x="82" y="125" text-anchor="middle" fill="#A1A1AA" font-size="12" font-family="JetBrains Mono">ADP + Pᵢ</text>
+            <path d="M115 120 L148 120" stroke="#FFD60A" stroke-width="2.5"/>
+            <path d="M212 120 L245 120" stroke="#FFD60A" stroke-width="2.5"/>
+            <g transform="translate(285, 118)" class="svg-pulse">
+              <circle cx="0" cy="0" r="22" fill="#FFD60A" fill-opacity="0.25" stroke="#FFD60A" stroke-width="2.5"/>
+              <text x="0" y="4" text-anchor="middle" fill="#FFD60A" font-size="13" font-family="JetBrains Mono" font-weight="bold">ATP⚡</text>
+            </g>
+            <text x="180" y="178" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">Enzyme (-ase) that puts together (syn-thes-) ATP energy</text>
+          </svg>`;
+
+        case 6: // Autolysis
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- Worn-out Cell Outline Breaking Apart -->
+            <circle cx="145" cy="95" r="52" fill="#FF453A" fill-opacity="0.1" stroke="#FF453A" stroke-width="2.5" stroke-dasharray="9 6"/>
+            <!-- Lysosome Releasing Enzymes -->
+            <circle cx="115" cy="85" r="16" fill="#BF5AF2" fill-opacity="0.35" stroke="#BF5AF2" stroke-width="2"/>
+            <text x="115" y="89" text-anchor="middle" fill="#FFFFFF" font-size="9" font-family="JetBrains Mono">Enzymes</text>
+            <!-- Scissors / Breakdown Waves -->
+            <path d="M135 85 L175 70 M135 95 L180 95 M135 105 L172 120" stroke="#FF9F0A" stroke-width="2" stroke-dasharray="3 3"/>
+            <!-- Recycled fragments -->
+            <circle cx="240" cy="70" r="7" fill="#FF453A" fill-opacity="0.7"/>
+            <circle cx="262" cy="95" r="9" fill="#FF9F0A" fill-opacity="0.7"/>
+            <circle cx="238" cy="118" r="6" fill="#BF5AF2" fill-opacity="0.7"/>
+            <text x="180" y="26" text-anchor="middle" fill="#FF453A" font-size="11" font-family="JetBrains Mono" font-weight="bold">AUTO- (SELF) + -LYS- (BREAK APART)</text>
+            <text x="180" y="176" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">Cell breaks down its own damaged parts using enzymes</text>
+          </svg>`;
+
+        case 7: // Translation
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- Ribosome Subunits -->
+            <ellipse cx="180" cy="92" rx="68" ry="38" fill="#BF5AF2" fill-opacity="0.22" stroke="#BF5AF2" stroke-width="2.5"/>
+            <ellipse cx="180" cy="126" rx="58" ry="18" fill="#0A84FF" fill-opacity="0.25" stroke="#0A84FF" stroke-width="2"/>
+            <!-- mRNA Strand with Codons -->
+            <line x1="35" y1="118" x2="325" y2="118" stroke="#64D2FF" stroke-width="4"/>
+            <text x="75" y="138" fill="#64D2FF" font-size="10" font-family="JetBrains Mono">mRNA instructions (AUG-UUC-GGA)</text>
+            <!-- Growing Polypeptide Protein Chain -->
+            <circle cx="180" cy="65" r="9" fill="#34C759"/>
+            <circle cx="196" cy="48" r="9" fill="#FF9F0A"/>
+            <circle cx="215" cy="36" r="9" fill="#FFD60A"/>
+            <circle cx="236" cy="28" r="9" fill="#FF453A"/>
+            <text x="275" y="42" fill="#34C759" font-size="11" font-family="JetBrains Mono" font-weight="bold">← Protein Chain</text>
+            <text x="180" y="96" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="bold">RIBOSOME</text>
+            <text x="180" y="176" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">Ribosomes read mRNA instructions to build proteins</text>
+          </svg>`;
+
+        case 8: // Phagocytosis
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- Engulfing Cell with Pseudopod Arms -->
+            <path d="M55 95 C55 40, 145 35, 205 55 C235 65, 235 78, 200 78 C175 78, 175 112, 200 112 C235 112, 235 125, 205 135 C145 155, 55 150, 55 95 Z" fill="#0A84FF" fill-opacity="0.2" stroke="#0A84FF" stroke-width="3"/>
+            <circle cx="115" cy="95" r="20" fill="#BF5AF2" fill-opacity="0.4" stroke="#BF5AF2" stroke-width="2"/>
+            <!-- Bacterium Being Surrounded & Eaten -->
+            <rect x="215" y="82" width="46" height="26" rx="13" fill="#34C759" fill-opacity="0.35" stroke="#34C759" stroke-width="2.5" class="svg-pulse"/>
+            <text x="238" y="99" text-anchor="middle" fill="#34C759" font-size="9" font-family="JetBrains Mono" font-weight="bold">Bacteria</text>
+            <!-- Arrow in -->
+            <path d="M285 95 L266 95" stroke="#FF9F0A" stroke-width="2.5"/>
+            <text x="180" y="25" text-anchor="middle" fill="#64D2FF" font-size="11" font-family="JetBrains Mono" font-weight="bold">-PHAG- (EAT) + -CYTO- (CELL)</text>
+            <text x="180" y="176" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">Cell surrounds and takes in large particles like bacteria</text>
+          </svg>`;
+
+        case 9: // Photosynthesis
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- Sun Rays Input -->
+            <circle cx="52" cy="48" r="18" fill="#FFD60A" fill-opacity="0.3" stroke="#FFD60A" stroke-width="2.5" class="svg-pulse"/>
+            <text x="52" y="52" text-anchor="middle" fill="#FFD60A" font-size="10" font-weight="bold">SUN</text>
+            <text x="55" y="105" text-anchor="middle" fill="#64D2FF" font-size="11" font-family="JetBrains Mono">+ H₂O + CO₂</text>
+            <path d="M95 78 L130 78" stroke="#FFD60A" stroke-width="2.5"/>
+            <!-- Chloroplast Center -->
+            <ellipse cx="185" cy="82" rx="52" ry="34" fill="#34C759" fill-opacity="0.22" stroke="#34C759" stroke-width="3"/>
+            <text x="185" y="80" text-anchor="middle" fill="#34C759" font-size="11" font-weight="bold">Chloroplast</text>
+            <text x="185" y="95" text-anchor="middle" fill="#A1A1AA" font-size="9" font-family="JetBrains Mono">photo-syn-thes-is</text>
+            <path d="M242 78 L272 78" stroke="#34C759" stroke-width="2.5"/>
+            <!-- Glucose & Oxygen Output -->
+            <polygon points="305,55 325,67 325,90 305,102 285,90 285,67" fill="#FF9F0A" fill-opacity="0.25" stroke="#FF9F0A" stroke-width="2.5"/>
+            <text x="305" y="82" text-anchor="middle" fill="#FF9F0A" font-size="10" font-family="JetBrains Mono" font-weight="bold">Glucose</text>
+            <text x="305" y="122" text-anchor="middle" fill="#34C759" font-size="11" font-family="JetBrains Mono" font-weight="bold">+ O₂ Gas</text>
+            <text x="180" y="175" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">Plants use light, water & CO₂ to put together glucose + oxygen</text>
+          </svg>`;
+
+        case 10: // Endosymbiosis
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- Step 1: Ancestral Host + Bacteria -->
+            <circle cx="85" cy="90" r="42" fill="#0A84FF" fill-opacity="0.15" stroke="#0A84FF" stroke-width="2.5"/>
+            <circle cx="85" cy="90" r="14" fill="#BF5AF2" fill-opacity="0.5"/>
+            <ellipse cx="148" cy="90" rx="16" ry="9" fill="#FF9F0A" fill-opacity="0.4" stroke="#FF9F0A" stroke-width="2"/>
+            <!-- Arrow -->
+            <path d="M172 90 L205 90" stroke="#34C759" stroke-width="3"/>
+            <polygon points="212,90 202,84 202,96" fill="#34C759"/>
+            <!-- Step 2: Living Together Inside -->
+            <circle cx="272" cy="90" r="48" fill="#0A84FF" fill-opacity="0.2" stroke="#34C759" stroke-width="3"/>
+            <circle cx="255" cy="82" r="14" fill="#BF5AF2" fill-opacity="0.5"/>
+            <ellipse cx="290" cy="102" rx="16" ry="9" fill="#FF9F0A" fill-opacity="0.5" stroke="#FF9F0A" stroke-width="2" class="svg-pulse"/>
+            <ellipse cx="262" cy="114" rx="14" ry="8" fill="#34C759" fill-opacity="0.5" stroke="#34C759" stroke-width="2"/>
+            <text x="180" y="25" text-anchor="middle" fill="#34C759" font-size="11" font-family="JetBrains Mono" font-weight="bold">ENDO- (INSIDE) + SYM- (TOGETHER) + -BIO- (LIFE)</text>
+            <text x="180" y="175" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">How mitochondria & chloroplasts evolved from bacteria living inside cells</text>
+          </svg>`;
+
+        case 11: // Endergonic
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- Axes -->
+            <line x1="55" y1="25" x2="55" y2="145" stroke="#52525B" stroke-width="2"/>
+            <line x1="55" y1="145" x2="320" y2="145" stroke="#52525B" stroke-width="2"/>
+            <text x="38" y="90" text-anchor="middle" fill="#A1A1AA" font-size="10" transform="rotate(-90 38 90)">Energy</text>
+            <!-- Uphill Endergonic Curve -->
+            <path d="M65 125 L115 125 C155 125, 165 40, 215 55 L295 55" fill="none" stroke="#0A84FF" stroke-width="3.5"/>
+            <!-- Energy Absorbed Arrow -->
+            <path d="M145 122 L145 62" stroke="#FFD60A" stroke-width="3"/>
+            <polygon points="145,54 139,65 151,65" fill="#FFD60A"/>
+            <text x="115" y="92" text-anchor="end" fill="#FFD60A" font-size="11" font-family="JetBrains Mono" font-weight="bold">+ ENERGY IN</text>
+            <text x="90" y="140" text-anchor="middle" fill="#A1A1AA" font-size="10">Reactants</text>
+            <text x="260" y="45" text-anchor="middle" fill="#34C759" font-size="11" font-weight="bold">High-Energy Products</text>
+            <text x="180" y="176" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">Chemical reaction that NEEDS energy to happen (e.g., Photosynthesis)</text>
+          </svg>`;
+
+        case 12: // Exergonic
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- Axes -->
+            <line x1="55" y1="25" x2="55" y2="145" stroke="#52525B" stroke-width="2"/>
+            <line x1="55" y1="145" x2="320" y2="145" stroke="#52525B" stroke-width="2"/>
+            <text x="38" y="90" text-anchor="middle" fill="#A1A1AA" font-size="10" transform="rotate(-90 38 90)">Energy</text>
+            <!-- Downhill Exergonic Curve -->
+            <path d="M65 52 L120 52 C160 52, 175 128, 220 128 L295 128" fill="none" stroke="#FF9F0A" stroke-width="3.5"/>
+            <!-- Energy Released Arrow -->
+            <path d="M195 56 L195 118" stroke="#FF453A" stroke-width="3"/>
+            <polygon points="195,125 189,114 201,114" fill="#FF453A"/>
+            <text x="255" y="88" text-anchor="middle" fill="#FF9F0A" font-size="11" font-family="JetBrains Mono" font-weight="bold">ENERGY OUT ⚡</text>
+            <text x="95" y="42" text-anchor="middle" fill="#FFFFFF" font-size="10">Reactants (Glucose)</text>
+            <text x="265" y="142" text-anchor="middle" fill="#A1A1AA" font-size="10">Products</text>
+            <text x="180" y="176" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">Chemical reaction that RELEASES energy (ex- = out, -erg- = energy)</text>
+          </svg>`;
+
+        case 13: // Cellular Respiration
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- Inputs: Glucose + O2 -->
+            <text x="58" y="75" text-anchor="middle" fill="#FF9F0A" font-size="11" font-family="JetBrains Mono" font-weight="bold">Glucose</text>
+            <text x="58" y="98" text-anchor="middle" fill="#64D2FF" font-size="11" font-family="JetBrains Mono">+ O₂</text>
+            <path d="M95 85 L125 85" stroke="#FF9F0A" stroke-width="2.5"/>
+            <!-- Mitochondrion Powerhouse -->
+            <ellipse cx="185" cy="85" rx="54" ry="34" fill="#FF9F0A" fill-opacity="0.2" stroke="#FF9F0A" stroke-width="3"/>
+            <path d="M148 85 L160 70 L174 100 L188 70 L202 100 L216 85" fill="none" stroke="#FF9F0A" stroke-width="2.2"/>
+            <text x="185" y="42" text-anchor="middle" fill="#FF9F0A" font-size="11" font-family="JetBrains Mono" font-weight="bold">MITOCHONDRIA</text>
+            <path d="M242 85 L270 85" stroke="#FFD60A" stroke-width="2.5"/>
+            <!-- Output: ATP + CO2 + H2O -->
+            <circle cx="305" cy="72" r="22" fill="#FFD60A" fill-opacity="0.25" stroke="#FFD60A" stroke-width="2.5" class="svg-pulse"/>
+            <text x="305" y="76" text-anchor="middle" fill="#FFD60A" font-size="12" font-family="JetBrains Mono" font-weight="bold">ATP⚡</text>
+            <text x="305" y="116" text-anchor="middle" fill="#A1A1AA" font-size="10" font-family="JetBrains Mono">+ CO₂ + H₂O</text>
+            <text x="180" y="175" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">Cells break down glucose to release energy and make ATP</text>
+          </svg>`;
+
+        case 14: // Aerobic
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- Oxygen Required Badge -->
+            <circle cx="115" cy="85" r="38" fill="#34C759" fill-opacity="0.18" stroke="#34C759" stroke-width="3"/>
+            <text x="115" y="82" text-anchor="middle" fill="#34C759" font-size="20" font-family="JetBrains Mono" font-weight="bold">O₂</text>
+            <text x="115" y="102" text-anchor="middle" fill="#FFFFFF" font-size="10" font-family="JetBrains Mono">REQUIRED ✓</text>
+            <path d="M160 85 L205 85" stroke="#34C759" stroke-width="3"/>
+            <!-- High ATP Output -->
+            <rect x="212" y="48" width="105" height="74" rx="14" fill="#0A84FF" fill-opacity="0.18" stroke="#0A84FF" stroke-width="2.5"/>
+            <text x="264" y="78" text-anchor="middle" fill="#FFD60A" font-size="15" font-family="JetBrains Mono" font-weight="bold">36–38 ATP</text>
+            <text x="264" y="98" text-anchor="middle" fill="#64D2FF" font-size="10" font-family="JetBrains Mono">Full Energy Yield</text>
+            <text x="180" y="25" text-anchor="middle" fill="#34C759" font-size="11" font-family="JetBrains Mono" font-weight="bold">AERO- (AIR / OXYGEN) + -BIO- (LIFE)</text>
+            <text x="180" y="175" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">A biological process that REQUIRES oxygen to happen</text>
+          </svg>`;
+
+        case 15: // Glycolysis
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- 6-Carbon Glucose Ring -->
+            <polygon points="85,60 110,74 110,102 85,116 60,102 60,74" fill="#FF9F0A" fill-opacity="0.25" stroke="#FF9F0A" stroke-width="2.5"/>
+            <text x="85" y="92" text-anchor="middle" fill="#FF9F0A" font-size="10" font-family="JetBrains Mono" font-weight="bold">Glucose</text>
+            <text x="85" y="132" text-anchor="middle" fill="#A1A1AA" font-size="9" font-family="JetBrains Mono">(6 Carbons)</text>
+            <!-- Splitting Lightning Bolt (-lys-) -->
+            <path d="M130 88 L195 62 M130 88 L195 114" stroke="#FFD60A" stroke-width="2.5"/>
+            <text x="162" y="50" text-anchor="middle" fill="#FFD60A" font-size="10" font-family="JetBrains Mono" font-weight="bold">SPLIT (-lys-)</text>
+            <!-- Two Smaller Molecules (Pyruvate) -->
+            <rect x="205" y="45" width="95" height="32" rx="8" fill="#34C759" fill-opacity="0.22" stroke="#34C759" stroke-width="2"/>
+            <text x="252" y="65" text-anchor="middle" fill="#34C759" font-size="10" font-family="JetBrains Mono" font-weight="bold">3-C Molecule #1</text>
+            <rect x="205" y="95" width="95" height="32" rx="8" fill="#34C759" fill-opacity="0.22" stroke="#34C759" stroke-width="2"/>
+            <text x="252" y="115" text-anchor="middle" fill="#34C759" font-size="10" font-family="JetBrains Mono" font-weight="bold">3-C Molecule #2</text>
+            <text x="180" y="175" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">-glyco- (sugar) + -lys- (breaking apart) → breaks glucose in two</text>
+          </svg>`;
+
+        case 16: // Anaerobic
+          return `
+          <svg viewBox="0 0 360 190" class="w-full h-44">
+            <!-- No Oxygen Slash Circle -->
+            <circle cx="115" cy="85" r="38" fill="#FF453A" fill-opacity="0.15" stroke="#FF453A" stroke-width="3"/>
+            <text x="115" y="92" text-anchor="middle" fill="#F5F5F7" font-size="22" font-family="JetBrains Mono" font-weight="bold">O₂</text>
+            <line x1="88" y1="112" x2="142" y2="58" stroke="#FF453A" stroke-width="4"/>
+            <text x="115" y="138" text-anchor="middle" fill="#FF453A" font-size="10" font-family="JetBrains Mono" font-weight="bold">NO OXYGEN</text>
+            <path d="M162 85 L205 85" stroke="#FF9F0A" stroke-width="2.5" stroke-dasharray="4 4"/>
+            <!-- Cytoplasm Process Box -->
+            <rect x="212" y="48" width="112" height="74" rx="14" fill="#BF5AF2" fill-opacity="0.18" stroke="#BF5AF2" stroke-width="2.5"/>
+            <text x="268" y="76" text-anchor="middle" fill="#BF5AF2" font-size="12" font-family="JetBrains Mono" font-weight="bold">Glycolysis</text>
+            <text x="268" y="96" text-anchor="middle" fill="#FFFFFF" font-size="10">Works without O₂</text>
+            <text x="180" y="25" text-anchor="middle" fill="#FF453A" font-size="11" font-family="JetBrains Mono" font-weight="bold">AN- (WITHOUT) + AERO- (OXYGEN)</text>
+            <text x="180" y="175" text-anchor="middle" fill="#A1A1AA" font-size="11" font-family="Inter">A process that does NOT require oxygen to happen</text>
+          </svg>`;
+      }
+    }
+
+    /**************************************************************
+     * 4. HELPER TO RENDER WORD PART PILLS
+     **************************************************************/
+    function renderWordPartBadges(wordParts) {
+      return wordParts.map(wp => {
+        let colorClass = "bg-bioPurple/15 text-bioPurple border-bioPurple/40";
+        if (wp.type.toLowerCase().includes("prefix")) {
+          colorClass = "bg-bioBlue/15 text-bioBlue border-bioBlue/40";
+        } else if (wp.type.toLowerCase().includes("suffix")) {
+          colorClass = "bg-bioOrange/15 text-bioOrange border-bioOrange/40";
+        } else if (wp.type.toLowerCase().includes("root")) {
+          colorClass = "bg-bioPurple/15 text-bioPurple border-bioPurple/40";
+        }
+        return `
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono ${colorClass}">
+            <span class="opacity-75 text-[10px] uppercase">${wp.type}:</span>
+            <strong class="font-bold">${wp.part}</strong>
+            <span class="text-zinc-200">= ${wp.meaning}</span>
+          </span>
+        `;
+      }).join('');
+    }
+
+    /**************************************************************
+     * 5. NAVIGATION & STATE MANAGEMENT
+     **************************************************************/
+    let currentTab = 'flashcards';
+
+    // Flashcard state
+    let fcDeck = [...VOCAB_DATA];
+    let fcIndex = 0;
+    let fcFlipped = false;
+    let fcFilter = 'all'; // 'all', 'learning', 'gotit'
+    let fcShowFrontHint = true;
+    let fcStatusMap = {}; // id -> 'learning' | 'gotit'
+    VOCAB_DATA.forEach(w => fcStatusMap[w.id] = 'learning');
+
+    // Visual Explorer state
+    let currentVisualCategory = 'all';
+
+    // Learn Game state
+    let learnMastery = {}; // id -> 0 (New), 1 (Familiar), 2 (Mastered)
+    let learnStreak = 0;
+    let currentLearnQuestion = null;
+    VOCAB_DATA.forEach(w => learnMastery[w.id] = 0);
+
+    // Practice Tests state (5 distinct versions, default randomMix of Word->Def and Def->Word)
+    let currentTestVersion = '1'; // '1', '2', '3', '4', '5'
+    let testDirection = 'randomMix'; // 'randomMix' | 'wordToDef' | 'defToWord'
+    let currentTestQuestions = [];
+    let userTestAnswers = {}; // qIndex -> selectedChoiceIndex
+    let testSubmitted = false;
+    let savedTestScores = { '1': null, '2': null, '3': null, '4': null, '5': null };
+
+    function switchTab(tab) {
+      currentTab = tab;
+      ['flashcards', 'visuals', 'learn', 'tests'].forEach(t => {
+        const view = document.getElementById(`view-${t}`);
+        const btn = document.getElementById(`tab-${t}`);
+        if (t === tab) {
+          view.classList.remove('hidden');
+          btn.className = "tab-btn flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-bioGreen text-black shadow-md";
+        } else {
+          view.classList.add('hidden');
+          btn.className = "tab-btn flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap text-zinc-300 hover:text-white hover:bg-bgElevated/60";
+        }
+      });
+
+      if (tab === 'flashcards') renderFlashcardView();
+      if (tab === 'visuals') renderVisualGrid();
+      if (tab === 'learn') renderLearnGame();
+      if (tab === 'tests') {
+        if (currentTestQuestions.length === 0) generateCurrentTest(false);
+      }
+    }
+
+    function updateGlobalMasteryHeader() {
+      const gotItCount = Object.values(fcStatusMap).filter(v => v === 'gotit').length;
+      const learnMasteredCount = Object.values(learnMastery).filter(v => v === 2).length;
+      const bestCount = Math.max(gotItCount, learnMasteredCount);
+      const el = document.getElementById('headerMasteryCount');
+      if (el) el.textContent = `${bestCount} / 16 Words`;
+    }
+
+    /**************************************************************
+     * 6. MODULE 1: INTERACTIVE FLASHCARDS LOGIC
+     **************************************************************/
+    function buildFilteredDeck() {
+      if (fcFilter === 'all') {
+        fcDeck = [...VOCAB_DATA];
+      } else {
+        fcDeck = VOCAB_DATA.filter(w => fcStatusMap[w.id] === fcFilter);
+      }
+      if (fcIndex >= fcDeck.length) fcIndex = 0;
+    }
+
+    function setFlashcardFilter(filter) {
+      fcFilter = filter;
+      fcIndex = 0;
+      fcFlipped = false;
+      ['all', 'learning', 'gotit'].forEach(f => {
+        const btn = document.getElementById(`fc-filter-${f}`);
+        if (!btn) return;
+        if (f === filter) {
+          btn.className = "px-3 py-1.5 rounded-xl text-xs font-semibold bg-bioBlue text-white transition";
+        } else {
+          btn.className = "px-3 py-1.5 rounded-xl text-xs font-semibold bg-bgElevated text-zinc-300 hover:text-white transition";
+        }
+      });
+      buildFilteredDeck();
+      renderFlashcardView();
+    }
+
+    function toggleFrontHint() {
+      fcShowFrontHint = !fcShowFrontHint;
+      const btn = document.getElementById('fc-hint-toggle');
+      btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Front Word-Part Hint: ${fcShowFrontHint ? 'ON' : 'OFF'}`;
+      renderFlashcardView();
+    }
+
+    function flipFlashcard() {
+      if (fcDeck.length === 0) return;
+      fcFlipped = !fcFlipped;
+      playSound('flip');
+      const inner = document.getElementById('fc-inner');
+      if (fcFlipped) {
+        inner.classList.add('rotate-y-180');
+      } else {
+        inner.classList.remove('rotate-y-180');
+      }
+    }
+
+    function nextFlashcard() {
+      if (fcDeck.length === 0) return;
+      fcFlipped = false;
+      document.getElementById('fc-inner').classList.remove('rotate-y-180');
+      fcIndex = (fcIndex + 1) % fcDeck.length;
+      playSound('flip');
+      renderFlashcardView();
+    }
+
+    function prevFlashcard() {
+      if (fcDeck.length === 0) return;
+      fcFlipped = false;
+      document.getElementById('fc-inner').classList.remove('rotate-y-180');
+      fcIndex = (fcIndex - 1 + fcDeck.length) % fcDeck.length;
+      playSound('flip');
+      renderFlashcardView();
+    }
+
+    function shuffleFlashcards() {
+      for (let i = fcDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [fcDeck[i], fcDeck[j]] = [fcDeck[j], fcDeck[i]];
+      }
+      fcIndex = 0;
+      fcFlipped = false;
+      document.getElementById('fc-inner').classList.remove('rotate-y-180');
+      playSound('flip');
+      renderFlashcardView();
+    }
+
+    function resetFlashcards() {
+      VOCAB_DATA.forEach(w => fcStatusMap[w.id] = 'learning');
+      fcFilter = 'all';
+      fcIndex = 0;
+      fcFlipped = false;
+      document.getElementById('fc-inner').classList.remove('rotate-y-180');
+      setFlashcardFilter('all');
+    }
+
+    function markFlashcardStatus(status) {
+      if (fcDeck.length === 0) return;
+      const currentWord = fcDeck[fcIndex];
+      fcStatusMap[currentWord.id] = status;
+      playSound(status === 'gotit' ? 'correct' : 'flip');
+      updateGlobalMasteryHeader();
+
+      if (fcFilter !== 'all' && fcStatusMap[currentWord.id] !== fcFilter) {
+        buildFilteredDeck();
+      } else if (fcIndex < fcDeck.length - 1) {
+        fcIndex++;
+      }
+      fcFlipped = false;
+      document.getElementById('fc-inner').classList.remove('rotate-y-180');
+      renderFlashcardView();
+    }
+
+    function jumpToFlashcard(wordId) {
+      fcFilter = 'all';
+      setFlashcardFilter('all');
+      const idx = fcDeck.findIndex(w => w.id === wordId);
+      if (idx !== -1) {
+        fcIndex = idx;
+        fcFlipped = false;
+        document.getElementById('fc-inner').classList.remove('rotate-y-180');
+        playSound('flip');
+        renderFlashcardView();
+      }
+    }
+
+    function renderFlashcardView() {
+      const gotItTotal = Object.values(fcStatusMap).filter(s => s === 'gotit').length;
+      const learningTotal = 16 - gotItTotal;
+      document.getElementById('fc-count-learning').textContent = learningTotal;
+      document.getElementById('fc-count-gotit').textContent = gotItTotal;
+
+      const pct = Math.round((gotItTotal / 16) * 100);
+      document.getElementById('fc-progress-label').textContent = `${gotItTotal}/16 (${pct}%)`;
+      document.getElementById('fc-progress-bar').style.width = `${pct}%`;
+
+      const stage = document.getElementById('fc-stage-container');
+      if (fcDeck.length === 0) {
+        stage.innerHTML = `
+          <div class="bg-bgCard border border-bgElevated rounded-3xl p-10 text-center space-y-4">
+            <div class="w-14 h-14 rounded-2xl bg-bioGreen/20 text-bioGreen flex items-center justify-center mx-auto text-2xl">
+              <i class="fa-solid fa-party-horn"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">No cards in this filter!</h3>
+            <p class="text-sm text-zinc-400">Switch back to "All Words (16)" to review the full vocabulary deck.</p>
+            <button onclick="setFlashcardFilter('all')" class="px-5 py-2.5 rounded-xl bg-bioGreen text-black font-bold text-sm">Show All 16 Cards</button>
+          </div>
+        `;
+        return;
+      }
+
+      // Restore stage if it was replaced by empty state
+      if (!document.getElementById('fc-front-term')) {
+        location.reload();
+        return;
+      }
+
+      const card = fcDeck[fcIndex];
+      document.getElementById('fc-card-number').textContent = `Card ${fcIndex + 1} of ${fcDeck.length}`;
+      document.getElementById('fc-card-category').textContent = card.category;
+
+      const statusBadge = document.getElementById('fc-card-status-badge');
+      if (fcStatusMap[card.id] === 'gotit') {
+        statusBadge.textContent = "Got It! ✓";
+        statusBadge.className = "px-3 py-1 rounded-lg bg-bioGreen/20 border border-bioGreen/40 text-bioGreen font-mono text-xs font-semibold";
+      } else {
+        statusBadge.textContent = "Still Learning";
+        statusBadge.className = "px-3 py-1 rounded-lg bg-bioOrange/15 border border-bioOrange/30 text-bioOrange font-mono text-xs font-semibold";
+      }
+
+      document.getElementById('fc-front-term').textContent = card.term;
+      const hintBox = document.getElementById('fc-front-hint-box');
+      if (fcShowFrontHint) {
+        hintBox.classList.remove('hidden');
+        document.getElementById('fc-front-parts').innerHTML = renderWordPartBadges(card.wordParts);
+      } else {
+        hintBox.classList.add('hidden');
+      }
+
+      document.getElementById('fc-back-term').textContent = card.term;
+      document.getElementById('fc-back-definition').textContent = card.definition;
+      document.getElementById('fc-back-parts').innerHTML = renderWordPartBadges(card.wordParts);
+      document.getElementById('fc-back-connection').textContent = card.connection;
+
+      // Render quick jump grid
+      const quickJump = document.getElementById('fc-quick-jump');
+      quickJump.innerHTML = VOCAB_DATA.map(w => {
+        const isCurrent = card.id === w.id;
+        const isGotIt = fcStatusMap[w.id] === 'gotit';
+        return `
+          <button onclick="jumpToFlashcard(${w.id})" class="px-2.5 py-2 rounded-xl text-xs font-semibold border text-left truncate transition flex items-center justify-between gap-1 ${
+            isCurrent
+              ? 'bg-bioBlue/25 border-bioBlue text-white ring-2 ring-bioBlue/40'
+              : 'bg-black/60 border-bgElevated text-zinc-300 hover:border-zinc-500'
+          }">
+            <span class="truncate">${w.id}. ${w.term}</span>
+            <span class="w-2 h-2 rounded-full shrink-0 ${isGotIt ? 'bg-bioGreen' : 'bg-bioOrange'}"></span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function openVisualModalFromCard() {
+      const card = fcDeck[fcIndex];
+      if (!card) return;
+      openVisualModal(card.id);
+    }
+
+    function openVisualModal(wordId) {
+      const word = VOCAB_DATA.find(w => w.id === wordId);
+      if (!word) return;
+      document.getElementById('modal-category').textContent = word.category;
+      document.getElementById('modal-term').textContent = word.term;
+      document.getElementById('modal-svg-box').innerHTML = getDiagramSVG(word.id);
+      document.getElementById('modal-definition').textContent = word.definition;
+      document.getElementById('modal-parts').innerHTML = renderWordPartBadges(word.wordParts);
+      document.getElementById('modal-connection').innerHTML = `<strong class="text-bioCyan font-mono uppercase text-xs block mb-1">Connection to Another Word:</strong> ${word.connection}`;
+      document.getElementById('visualModal').classList.remove('hidden');
+    }
+
+    function closeVisualModal() {
+      document.getElementById('visualModal').classList.add('hidden');
+    }
+
+    /**************************************************************
+     * 7. MODULE 2: VISUAL EXPLORER GUIDE
+     **************************************************************/
+    function setVisualCategory(cat) {
+      currentVisualCategory = cat;
+      const mapIds = {
+        'all': 'vis-cat-all',
+        'Cells & Organelles': 'vis-cat-cells',
+        'Energy & Reactions': 'vis-cat-energy',
+        'Cell Processes': 'vis-cat-processes'
+      };
+      Object.entries(mapIds).forEach(([key, id]) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        if (key === cat) {
+          btn.className = "vis-cat-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-bioBlue text-white whitespace-nowrap";
+        } else {
+          btn.className = "vis-cat-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-bgElevated text-zinc-300 hover:text-white whitespace-nowrap";
+        }
+      });
+      renderVisualGrid();
+    }
+
+    function renderVisualGrid() {
+      const query = (document.getElementById('visualSearchInput')?.value || '').toLowerCase().trim();
+      const filtered = VOCAB_DATA.filter(w => {
+        const matchesCat = currentVisualCategory === 'all' || w.category === currentVisualCategory;
+        const partsStr = w.wordParts.map(p => `${p.part} ${p.meaning}`).join(' ').toLowerCase();
+        const matchesQuery = !query ||
+          w.term.toLowerCase().includes(query) ||
+          w.definition.toLowerCase().includes(query) ||
+          w.connection.toLowerCase().includes(query) ||
+          partsStr.includes(query);
+        return matchesCat && matchesQuery;
+      });
+
+      const grid = document.getElementById('visual-cards-grid');
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full bg-bgCard border border-bgElevated rounded-2xl p-10 text-center text-zinc-400">
+            No vocabulary words match your search filter. Try clearing the search box!
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(w => `
+        <article class="bg-bgCard border border-bgElevated hover:border-zinc-600 rounded-3xl p-5 sm:p-6 flex flex-col justify-between gap-4 transition shadow-xl">
+          <div class="space-y-4">
+            <!-- Header -->
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <span class="text-[11px] font-mono uppercase tracking-wider text-bioBlue font-semibold">${w.category}</span>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-white">${w.id}. ${w.term}</h3>
+              </div>
+              <span class="px-2.5 py-1 rounded-lg bg-bgElevated text-zinc-300 font-mono text-xs font-semibold">Links → ${w.connectedTerm}</span>
+            </div>
+
+            <!-- Custom SVG Diagram -->
+            <div class="bg-black/75 border border-bgElevated rounded-2xl p-3 flex items-center justify-center overflow-hidden">
+              ${getDiagramSVG(w.id)}
+            </div>
+
+            <!-- Exact Definition -->
+            <div class="bg-black/45 border border-bgElevated rounded-2xl p-4">
+              <div class="text-[11px] font-mono uppercase tracking-wider text-bioGreen font-bold mb-1">
+                <i class="fa-solid fa-check-circle mr-1"></i>Worksheet Definition
+              </div>
+              <p class="text-sm sm:text-base text-white font-medium leading-relaxed">${w.definition}</p>
+            </div>
+
+            <!-- Word Parts -->
+            <div class="space-y-1.5">
+              <div class="text-[11px] font-mono uppercase tracking-wider text-bioPurple font-bold">
+                <i class="fa-solid fa-puzzle-piece mr-1"></i>Word Parts (Prefix / Root / Suffix)
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                ${renderWordPartBadges(w.wordParts)}
+              </div>
+            </div>
+          </div>
+
+          <!-- Connection Footer -->
+          <div class="bg-bioBlue/10 border border-bioBlue/30 rounded-2xl p-3.5 mt-2">
+            <div class="text-[11px] font-mono uppercase tracking-wider text-bioCyan font-bold mb-1">
+              <i class="fa-solid fa-link mr-1"></i>Connection to Another Word
+            </div>
+            <p class="text-xs sm:text-sm text-zinc-200 leading-relaxed">${w.connection}</p>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    /**************************************************************
+     * 8. MODULE 3: QUIZLET-STYLE ADAPTIVE LEARN GAME
+     **************************************************************/
+    function updateLearnCounters() {
+      const levels = Object.values(learnMastery);
+      const countNew = levels.filter(l => l === 0).length;
+      const countFam = levels.filter(l => l === 1).length;
+      const countMas = levels.filter(l => l === 2).length;
+
+      document.getElementById('learn-count-new').textContent = countNew;
+      document.getElementById('learn-count-familiar').textContent = countFam;
+      document.getElementById('learn-count-mastered').textContent = countMas;
+      document.getElementById('learn-streak').textContent = `${learnStreak} 🔥`;
+
+      const totalPoints = levels.reduce((acc, v) => acc + v, 0);
+      const pct = Math.round((totalPoints / 32) * 100);
+      document.getElementById('learn-progress-bar').style.width = `${pct}%`;
+      document.getElementById('learn-progress-pct').textContent = `${pct}% Mastered`;
+      updateGlobalMasteryHeader();
+    }
+
+    function resetLearnGame() {
+      VOCAB_DATA.forEach(w => learnMastery[w.id] = 0);
+      learnStreak = 0;
+      currentLearnQuestion = null;
+      renderLearnGame();
+    }
+
+    function pickNextLearnQuestion() {
+      const unmastered = VOCAB_DATA.filter(w => learnMastery[w.id] < 2);
+      if (unmastered.length === 0) return null;
+
+      // Prioritize level 0 words first, then level 1
+      const level0 = unmastered.filter(w => learnMastery[w.id] === 0);
+      const pool = level0.length > 0 ? level0 : unmastered;
+      const targetWord = pool[Math.floor(Math.random() * pool.length)];
+      const currentLevel = learnMastery[targetWord.id];
+
+      // Build 3 distractors
+      const others = VOCAB_DATA.filter(w => w.id !== targetWord.id);
+      const shuffledOthers = [...others].sort(() => Math.random() - 0.5).slice(0, 3);
+      const options = [...shuffledOthers, targetWord].sort(() => Math.random() - 0.5);
+
+      return {
+        word: targetWord,
+        level: currentLevel, // 0 -> Multiple Choice, 1 -> Type or Word-Part Recall
+        options
+      };
+    }
+
+    function renderLearnGame() {
+      updateLearnCounters();
+      const arena = document.getElementById('learn-arena');
+      const nextQ = pickNextLearnQuestion();
+      currentLearnQuestion = nextQ;
+
+      if (!nextQ) {
+        playSound('celebrate');
+        arena.innerHTML = `
+          <div class="bg-bgCard border-2 border-bioGreen rounded-3xl p-8 text-center space-y-5 shadow-2xl">
+            <div class="w-16 h-16 rounded-2xl bg-bioGreen/20 border border-bioGreen text-bioGreen flex items-center justify-center mx-auto text-3xl">
+              <i class="fa-solid fa-crown"></i>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white">100% Mastery Achieved, Jeffery!</h3>
+            <p class="text-sm sm:text-base text-zinc-300 max-w-xl mx-auto">
+              You have completed both Round 1 (Multiple Choice) and Round 2 (Written Mastery) for all 16 Unit 4 Cell Organelles & Energy words!
+            </p>
+            <div class="flex flex-wrap justify-center gap-3 pt-2">
+              <button onclick="switchTab('tests')" class="px-6 py-3 rounded-2xl bg-bioGreen text-black font-extrabold text-sm">
+                Take a Practice Test Now →
+              </button>
+              <button onclick="resetLearnGame()" class="px-6 py-3 rounded-2xl bg-bgElevated text-white font-semibold text-sm">
+                Play Learn Mode Again
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const w = nextQ.word;
+
+      if (nextQ.level === 0) {
+        // ROUND 1: Multiple Choice
+        arena.innerHTML = `
+          <div class="bg-bgCard border border-bgElevated rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-bgElevated pb-3">
+              <span class="px-3 py-1 rounded-lg bg-bioBlue/20 text-bioBlue border border-bioBlue/40 font-mono text-xs font-bold">
+                ROUND 1 • MULTIPLE CHOICE FAMILIARITY
+              </span>
+              <span class="text-xs font-mono text-zinc-400">${w.category}</span>
+            </div>
+
+            <div class="space-y-4">
+              <div class="text-xs font-mono uppercase tracking-wider text-zinc-400">Identify the matching vocabulary term:</div>
+              <p class="text-lg sm:text-2xl font-bold text-white leading-snug">"${w.definition}"</p>
+              <div class="pt-1 flex flex-wrap gap-1.5">
+                ${renderWordPartBadges(w.wordParts)}
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              ${nextQ.options.map((opt, idx) => `
+                <button onclick="submitLearnMC(${opt.id})" class="p-4 rounded-2xl bg-black/60 hover:bg-bgElevated border border-bgElevated hover:border-bioBlue text-left transition flex items-center gap-3 group">
+                  <span class="w-8 h-8 rounded-lg bg-bgElevated group-hover:bg-bioBlue group-hover:text-white text-zinc-400 font-mono text-xs font-bold flex items-center justify-center shrink-0">
+                    ${idx + 1}
+                  </span>
+                  <span class="text-base font-bold text-white">${opt.term}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else {
+        // ROUND 2: Type Answer or Word Bank Assist (Mastery)
+        arena.innerHTML = `
+          <div class="bg-bgCard border border-bioPurple/50 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-bgElevated pb-3">
+              <span class="px-3 py-1 rounded-lg bg-bioPurple/20 text-bioPurple border border-bioPurple/40 font-mono text-xs font-bold">
+                ROUND 2 • WRITTEN / ETYMOLOGY MASTERY
+              </span>
+              <span class="text-xs font-mono text-bioGreen">1 Correct Answer Away from Mastered!</span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="text-xs font-mono uppercase tracking-wider text-zinc-400">Definition & Connection Clue:</div>
+              <p class="text-lg sm:text-xl font-bold text-white leading-snug">"${w.definition}"</p>
+              <div class="bg-bioBlue/10 border border-bioBlue/30 rounded-xl p-3 text-xs sm:text-sm text-zinc-200">
+                <strong class="text-bioCyan font-mono">Word Parts Clue:</strong>
+                ${w.wordParts.map(p => `${p.part} (${p.meaning})`).join(' • ')}
+              </div>
+            </div>
+
+            <!-- Type Input -->
+            <form onsubmit="event.preventDefault(); submitLearnWritten();" class="space-y-3">
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input id="learnWrittenInput" type="text" autocomplete="off" placeholder="Type the vocabulary term here..." class="flex-1 px-4 py-3.5 rounded-2xl bg-black border-2 border-bgElevated focus:border-bioPurple text-white font-semibold text-base focus:outline-none" />
+                <button type="submit" class="px-6 py-3.5 rounded-2xl bg-bioGreen hover:bg-emerald-400 text-black font-extrabold text-sm transition">
+                  Check Answer
+                </button>
+              </div>
+            </form>
+
+            <!-- Quick Tap Word-Bank Hint for Spelling Support -->
+            <div class="pt-2 border-t border-bgElevated space-y-2">
+              <div class="text-xs text-zinc-400 flex items-center justify-between">
+                <span>Not sure about spelling? Tap one of the 4 candidates below to fill it in:</span>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                ${nextQ.options.map(opt => `
+                  <button onclick="fillLearnInput('${opt.term.replace(/'/g, "\\'")}')" class="px-3 py-1.5 rounded-xl bg-bgElevated hover:bg-zinc-700 text-xs font-mono text-zinc-200 border border-zinc-600 transition">
+                    ${opt.term}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+        setTimeout(() => {
+          document.getElementById('learnWrittenInput')?.focus();
+        }, 60);
+      }
+    }
+
+    function fillLearnInput(val) {
+      const inp = document.getElementById('learnWrittenInput');
+      if (inp) {
+        inp.value = val;
+        inp.focus();
+      }
+    }
+
+    // Levenshtein distance for forgiving minor spelling typos
+    function editDistance(a, b) {
+      const dp = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
+      for (let i = 0; i <= a.length; i++) dp[i][0] = i;
+      for (let j = 0; j <= b.length; j++) dp[0][j] = j;
+      for (let i = 1; i <= a.length; i++) {
+        for (let j = 1; j <= b.length; j++) {
+          dp[i][j] = a[i - 1] === b[j - 1]
+            ? dp[i - 1][j - 1]
+            : 1 + Math.min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]);
+        }
+      }
+      return dp[a.length][b.length];
+    }
+
+    function submitLearnMC(selectedId) {
+      if (!currentLearnQuestion) return;
+      const target = currentLearnQuestion.word;
+      if (selectedId === target.id) {
+        learnMastery[target.id] = 1;
+        learnStreak++;
+        playSound('correct');
+        showLearnFeedback(true, target);
+      } else {
+        learnStreak = 0;
+        playSound('wrong');
+        showLearnFeedback(false, target);
+      }
+    }
+
+    function submitLearnWritten() {
+      if (!currentLearnQuestion) return;
+      const target = currentLearnQuestion.word;
+      const raw = (document.getElementById('learnWrittenInput')?.value || '').trim();
+      if (!raw) return;
+
+      const cleanUser = raw.toLowerCase().replace(/[^a-z]/g, '');
+      const cleanTarget = target.term.toLowerCase().replace(/[^a-z]/g, '');
+      const dist = editDistance(cleanUser, cleanTarget);
+
+      if (cleanUser === cleanTarget || (cleanTarget.length > 6 && dist <= 1)) {
+        learnMastery[target.id] = 2;
+        fcStatusMap[target.id] = 'gotit';
+        learnStreak++;
+        playSound('correct');
+        showLearnFeedback(true, target);
+      } else {
+        learnStreak = 0;
+        playSound('wrong');
+        showLearnFeedback(false, target);
+      }
+    }
+
+    function showLearnFeedback(isCorrect, word) {
+      updateLearnCounters();
+      const arena = document.getElementById('learn-arena');
+
+      if (isCorrect) {
+        arena.innerHTML = `
+          <div class="bg-bgCard border-2 border-bioGreen rounded-3xl p-6 sm:p-8 space-y-4 shadow-2xl">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-bioGreen text-black flex items-center justify-center font-bold">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <div>
+                  <h4 class="text-lg font-extrabold text-bioGreen">Correct! ${word.term}</h4>
+                  <p class="text-xs text-zinc-400">Status: ${learnMastery[word.id] === 2 ? 'MASTERED ★' : 'Familiar (Ready for Round 2)'}</p>
+                </div>
+              </div>
+              <button onclick="renderLearnGame()" class="px-5 py-2.5 rounded-xl bg-bioGreen text-black font-extrabold text-sm">
+                Next Question →
+              </button>
+            </div>
+            <p class="text-sm text-zinc-200 bg-black/50 p-3.5 rounded-xl border border-bgElevated">${word.definition}</p>
+            <div class="text-xs text-bioCyan font-mono">${word.connection}</div>
+          </div>
+        `;
+      } else {
+        arena.innerHTML = `
+          <div class="bg-bgCard border-2 border-bioRed rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-bgElevated pb-3">
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-bioRed/20 border border-bioRed text-bioRed flex items-center justify-center font-bold">
+                  <i class="fa-solid fa-lightbulb"></i>
+                </div>
+                <div>
+                  <h4 class="text-lg font-extrabold text-bioRed">Study Card Review: <span class="text-white">${word.term}</span></h4>
+                  <p class="text-xs text-zinc-400">Review the diagram and word parts below before moving on!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-black/70 border border-bgElevated rounded-2xl p-3">
+              ${getDiagramSVG(word.id)}
+            </div>
+
+            <div class="space-y-3">
+              <div class="bg-black/50 border border-bgElevated rounded-xl p-3.5">
+                <div class="text-[11px] font-mono text-bioGreen uppercase font-bold">Definition</div>
+                <p class="text-sm sm:text-base text-white font-semibold">${word.definition}</p>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                ${renderWordPartBadges(word.wordParts)}
+              </div>
+              <div class="bg-bioBlue/10 border border-bioBlue/30 rounded-xl p-3 text-xs sm:text-sm text-zinc-200">
+                <strong class="text-bioCyan font-mono">Connection:</strong> ${word.connection}
+              </div>
+            </div>
+
+            <button onclick="renderLearnGame()" class="w-full py-3.5 rounded-2xl bg-bioBlue hover:bg-blue-500 text-white font-extrabold text-sm transition">
+              Got It! Continue Studying →
+            </button>
+          </div>
+        `;
+      }
+    }
+
+    /**************************************************************
+     * 9. MODULE 4: FIVE RANDOMIZED MIXED PRACTICE TESTS
+     *    (RANDOM MIX OF WORD->DEF AND DEF->WORD MCQ)
+     **************************************************************/
+    function setTestDirection(dir) {
+      testDirection = dir;
+      const modes = ['randomMix', 'wordToDef', 'defToWord'];
+      modes.forEach(m => {
+        const btn = document.getElementById(`dir-btn-${m}`);
+        if (!btn) return;
+        if (m === dir) {
+          btn.className = m === 'randomMix'
+            ? "px-3 py-1.5 rounded-lg text-xs font-semibold bg-bioGreen text-black transition"
+            : "px-3 py-1.5 rounded-lg text-xs font-semibold bg-bioBlue text-white transition";
+        } else {
+          btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-400 hover:text-white transition";
+        }
+      });
+      generateCurrentTest(false);
+    }
+
+    function selectTestVersion(version) {
+      currentTestVersion = String(version);
+      ['1', '2', '3', '4', '5'].forEach(v => {
+        const tab = document.getElementById(`test-tab-${v}`);
+        if (!tab) return;
+        if (v === currentTestVersion) {
+          tab.className = "text-left p-3.5 rounded-2xl border-2 border-bioGreen bg-bioGreen/10 transition flex flex-col justify-between";
+        } else {
+          tab.className = "text-left p-3.5 rounded-2xl border-2 border-bgElevated bg-black/50 hover:border-zinc-600 transition flex flex-col justify-between";
+        }
+      });
+      generateCurrentTest(false);
+    }
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function generateCurrentTest(missedOnly = false) {
+      let sourcePool = [...VOCAB_DATA];
+      if (missedOnly && currentTestQuestions.length > 0) {
+        const missedIds = currentTestQuestions
+          .filter((q, idx) => userTestAnswers[idx] !== q.correctIndex)
+          .map(q => q.word.id);
+        if (missedIds.length > 0) {
+          sourcePool = VOCAB_DATA.filter(w => missedIds.includes(w.id));
+        }
+      }
+
+      // Randomize the order of the vocabulary words
+      sourcePool = shuffleArray(sourcePool);
+
+      userTestAnswers = {};
+      testSubmitted = false;
+      document.getElementById('test-results-banner').classList.add('hidden');
+      document.getElementById('test-submit-footer').classList.remove('hidden');
+
+      // Assign each question's direction (wordToDef vs defToWord)
+      // In 'randomMix' mode, we randomly assign ~half to wordToDef and ~half to defToWord
+      // and shuffle that assignment so any question number can be either format!
+      const totalQ = sourcePool.length;
+      let questionFormats = [];
+      if (testDirection === 'wordToDef') {
+        questionFormats = Array(totalQ).fill('wordToDef');
+      } else if (testDirection === 'defToWord') {
+        questionFormats = Array(totalQ).fill('defToWord');
+      } else {
+        const halfCount = Math.floor(totalQ / 2);
+        for (let i = 0; i < totalQ; i++) {
+          questionFormats.push(i < halfCount ? 'wordToDef' : 'defToWord');
+        }
+        questionFormats = shuffleArray(questionFormats);
+      }
+
+      let wordToDefCount = 0;
+      let defToWordCount = 0;
+
+      currentTestQuestions = sourcePool.map((word, index) => {
+        const bank = TRICKY_DEF_BANK[word.id];
+        const qFormat = questionFormats[index];
+        if (qFormat === 'wordToDef') wordToDefCount++;
+        else defToWordCount++;
+
+        let promptText = "";
+        let subHint = "";
+        let rawOptions = [];
+
+        if (qFormat === 'wordToDef') {
+          // ======================================================
+          // QUESTION IS THE WORD -> 4 DEFINITION CHOICES
+          // ======================================================
+          const neighborWords = bank.similarIds.map(id => VOCAB_DATA.find(w => w.id === id));
+          const otherRandomWords = shuffleArray(
+            VOCAB_DATA.filter(w => w.id !== word.id && !bank.similarIds.includes(w.id))
+          );
+
+          if (currentTestVersion === '1') {
+            // Test 1: Exact Worksheet Definition + 3 Similar Worksheet Definitions
+            promptText = word.term;
+            subHint = `Test 1 • Match the Word to its Worksheet Definition`;
+            rawOptions = [
+              { text: word.definition, isCorrect: true, tag: "Exact Worksheet Definition" },
+              ...neighborWords.map(nw => ({
+                text: nw.definition,
+                isCorrect: false,
+                tag: `This is the definition for ${nw.term}`
+              }))
+            ];
+          } else if (currentTestVersion === '2') {
+            // Test 2: Exact Worksheet Definition + 3 Tricky Altered Definitions (1-2 words changed)
+            promptText = word.term;
+            subHint = `Test 2 • Spot the True Definition (Watch for Altered Words!)`;
+            rawOptions = [
+              { text: word.definition, isCorrect: true, tag: "Correct Worksheet Definition" },
+              ...bank.trickyDefs.map(td => ({
+                text: td,
+                isCorrect: false,
+                tag: "Tricky altered definition trap!"
+              }))
+            ];
+          } else if (currentTestVersion === '3') {
+            // Test 3: Opposite/Neighbor Definition + 2 Tricky Altered Definitions
+            promptText = word.term;
+            subHint = `Test 3 • Close Opposites & Altered Definition Mix`;
+            const primaryNeighbor = neighborWords[0];
+            rawOptions = [
+              { text: word.definition, isCorrect: true, tag: "Correct Worksheet Definition" },
+              { text: primaryNeighbor.definition, isCorrect: false, tag: `This actually defines ${primaryNeighbor.term}` },
+              { text: bank.trickyDefs[0], isCorrect: false, tag: "Opposite/altered wording trap!" },
+              { text: bank.trickyDefs[1], isCorrect: false, tag: "Modified definition trap!" }
+            ];
+          } else if (currentTestVersion === '4') {
+            // Test 4: Paraphrased / Accurate Definition + 2 Tricky Altered + 1 Neighbor Definition
+            promptText = word.term;
+            subHint = `Test 4 • Reworded & Modified Definition Challenge`;
+            const useParaphrasedCorrect = Math.random() < 0.5;
+            rawOptions = [
+              {
+                text: useParaphrasedCorrect ? bank.paraphrasedDef : word.definition,
+                isCorrect: true,
+                tag: "Correct Definition"
+              },
+              { text: bank.trickyDefs[0], isCorrect: false, tag: "Altered definition trap!" },
+              { text: bank.trickyDefs[2], isCorrect: false, tag: "Modified wording trap!" },
+              { text: neighborWords[1].definition, isCorrect: false, tag: `This defines ${neighborWords[1].term}` }
+            ];
+          } else {
+            // Test 5: Ultimate Random Mix of Tricky + Neighbor + Paraphrased Distractors
+            promptText = word.term;
+            subHint = `Test 5 • Ultimate Exam Definition Mix`;
+            const shuffledTricky = shuffleArray(bank.trickyDefs);
+            rawOptions = [
+              { text: word.definition, isCorrect: true, tag: "Exact Worksheet Definition" },
+              { text: shuffledTricky[0], isCorrect: false, tag: "Sneaky altered definition trap!" },
+              { text: neighborWords[0].definition, isCorrect: false, tag: `This is the definition for ${neighborWords[0].term}` },
+              { text: otherRandomWords[0].definition, isCorrect: false, tag: `This is the definition for ${otherRandomWords[0].term}` }
+            ];
+          }
+        } else {
+          // ======================================================
+          // QUESTION IS THE DEFINITION -> 4 VOCAB WORD CHOICES
+          // ======================================================
+          const neighborWords = bank.similarIds.map(id => VOCAB_DATA.find(w => w.id === id));
+          const otherPool = shuffleArray(
+            VOCAB_DATA.filter(w => w.id !== word.id && !bank.similarIds.includes(w.id))
+          );
+
+          // In Tests 4 and 5, some Definition prompts use the accurate paraphrased definition so Jeffery really knows the meaning
+          const useParaphrasedStem =
+            (currentTestVersion === '4') ||
+            (currentTestVersion === '5' && Math.random() < 0.45);
+
+          promptText = useParaphrasedStem ? bank.paraphrasedDef : word.definition;
+          subHint = `Test ${currentTestVersion} • Match the Definition to the Correct Term`;
+
+          let distractorWords = [];
+          if (currentTestVersion === '1' || currentTestVersion === '3') {
+            // 3 closest confusable neighbor words
+            distractorWords = neighborWords;
+          } else if (currentTestVersion === '2') {
+            // 2 close neighbors + 1 random word from sheet
+            distractorWords = [neighborWords[0], neighborWords[1], otherPool[0]];
+          } else {
+            // Mix of closest opposite/neighbor + random sheet words
+            distractorWords = [neighborWords[0], neighborWords[2], otherPool[0]];
+          }
+
+          rawOptions = [
+            { text: word.term, isCorrect: true, tag: "Correct Vocabulary Word" },
+            ...distractorWords.map(dw => ({
+              text: dw.term,
+              isCorrect: false,
+              tag: `${dw.term} means: "${dw.definition}"`
+            }))
+          ];
+        }
+
+        const shuffledOptions = shuffleArray(rawOptions);
+        const correctIndex = shuffledOptions.findIndex(o => o.isCorrect);
+
+        return {
+          qNumber: index + 1,
+          qFormat, // 'wordToDef' or 'defToWord'
+          word,
+          promptText,
+          subHint,
+          options: shuffledOptions,
+          correctIndex,
+          trapNote: bank.trapNote
+        };
+      });
+
+      const mixSummaryEl = document.getElementById('test-mix-summary');
+      if (mixSummaryEl) {
+        mixSummaryEl.innerHTML = `Test ${currentTestVersion} Active Mix: <span class="text-bioBlue font-bold">${wordToDefCount} Word → Definition</span> • <span class="text-bioPurple font-bold">${defToWordCount} Definition → Word</span> (Shuffled at Random)`;
+      }
+
+      renderPracticeTestQuestions();
+      updateTestAnsweredCounter();
+    }
+
+    function selectTestChoice(qIdx, optIdx) {
+      if (testSubmitted) return;
+      userTestAnswers[qIdx] = optIdx;
+      playSound('flip');
+      renderPracticeTestQuestions();
+      updateTestAnsweredCounter();
+    }
+
+    function updateTestAnsweredCounter() {
+      const answeredCount = Object.keys(userTestAnswers).length;
+      const totalCount = currentTestQuestions.length;
+      const el = document.getElementById('test-answered-status');
+      if (el) el.textContent = `${answeredCount} / ${totalCount}`;
+    }
+
+    function renderPracticeTestQuestions() {
+      const container = document.getElementById('test-questions-container');
+      const letters = ['A', 'B', 'C', 'D'];
+
+      container.innerHTML = currentTestQuestions.map((q, idx) => {
+        const userPickIdx = userTestAnswers[idx];
+        const hasAnswered = userPickIdx !== undefined;
+        const isCorrect = userPickIdx === q.correctIndex;
+        const isWordPrompt = q.qFormat === 'wordToDef';
+
+        let borderClass = "border-bgElevated";
+        if (testSubmitted) {
+          borderClass = isCorrect ? "border-bioGreen" : "border-bioRed";
+        } else if (hasAnswered) {
+          borderClass = "border-bioBlue/60";
+        }
+
+        return `
+          <div class="bg-bgCard border-2 ${borderClass} rounded-2xl p-5 sm:p-6 space-y-4 transition">
+            <div class="flex items-start justify-between gap-3">
+              <div class="space-y-1.5 w-full">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="px-2.5 py-0.5 rounded-md bg-bgElevated text-zinc-200 font-mono text-xs font-bold">Question ${q.qNumber} of ${currentTestQuestions.length}</span>
+                  ${isWordPrompt ? `
+                    <span class="px-2.5 py-0.5 rounded-md bg-bioBlue/15 text-bioBlue border border-bioBlue/30 font-mono text-xs font-bold">
+                      <i class="fa-solid fa-tag mr-1"></i>WORD → PICK DEFINITION
+                    </span>
+                  ` : `
+                    <span class="px-2.5 py-0.5 rounded-md bg-bioPurple/15 text-bioPurple border border-bioPurple/30 font-mono text-xs font-bold">
+                      <i class="fa-solid fa-quote-left mr-1"></i>DEFINITION → PICK WORD
+                    </span>
+                  `}
+                  <span class="text-xs font-mono text-zinc-400 hidden sm:inline">${q.subHint}</span>
+                </div>
+
+                ${isWordPrompt ? `
+                  <div class="pt-2">
+                    <span class="text-xs uppercase font-mono tracking-wider text-zinc-400 block">Choose the correct definition for this vocabulary word:</span>
+                    <h4 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-0.5">${q.promptText}</h4>
+                  </div>
+                ` : `
+                  <div class="pt-2">
+                    <span class="text-xs uppercase font-mono tracking-wider text-zinc-400 block">Which vocabulary word matches this definition?</span>
+                    <h4 class="text-base sm:text-xl font-bold text-white leading-snug mt-1 bg-black/40 p-3.5 rounded-xl border border-bgElevated">"${q.promptText}"</h4>
+                  </div>
+                `}
+              </div>
+              ${testSubmitted ? `
+                <span class="px-3 py-1 rounded-lg font-mono text-xs font-bold shrink-0 ${isCorrect ? 'bg-bioGreen/20 text-bioGreen' : 'bg-bioRed/20 text-bioRed'}">
+                  ${isCorrect ? '✓ Correct' : '✗ Missed'}
+                </span>
+              ` : ''}
+            </div>
+
+            <!-- 4 Multiple Choice Options -->
+            <div class="grid grid-cols-1 ${isWordPrompt ? 'gap-2.5' : 'sm:grid-cols-2 gap-2.5'}">
+              ${q.options.map((opt, optIdx) => {
+                const isSelected = userPickIdx === optIdx;
+                const isRightAnswer = optIdx === q.correctIndex;
+
+                let btnStyle = "bg-black/60 border-bgElevated text-zinc-200 hover:border-zinc-500";
+                let badgeStyle = "bg-bgElevated text-zinc-400";
+
+                if (!testSubmitted && isSelected) {
+                  btnStyle = "bg-bioBlue/20 border-bioBlue text-white ring-2 ring-bioBlue/30";
+                  badgeStyle = "bg-bioBlue text-white";
+                } else if (testSubmitted) {
+                  if (isRightAnswer) {
+                    btnStyle = "bg-bioGreen/20 border-bioGreen text-bioGreen font-bold";
+                    badgeStyle = "bg-bioGreen text-black";
+                  } else if (isSelected && !isRightAnswer) {
+                    btnStyle = "bg-bioRed/20 border-bioRed text-bioRed";
+                    badgeStyle = "bg-bioRed text-white";
+                  }
+                }
+
+                return `
+                  <button
+                    onclick="selectTestChoice(${idx}, ${optIdx})"
+                    ${testSubmitted ? 'disabled' : ''}
+                    class="p-3.5 sm:p-4 rounded-xl border text-left text-sm sm:text-base transition flex items-start justify-between gap-3 ${btnStyle}"
+                  >
+                    <div class="flex items-start gap-3">
+                      <span class="w-7 h-7 rounded-lg font-mono text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 ${badgeStyle}">
+                        ${letters[optIdx]}
+                      </span>
+                      <div class="space-y-1">
+                        <span class="leading-relaxed block ${!isWordPrompt ? 'font-bold text-base' : ''}">${opt.text}</span>
+                        ${testSubmitted && isSelected && !isRightAnswer ? `
+                          <span class="text-xs font-mono text-bioOrange block">⚠️ Why this choice is wrong: ${opt.tag}</span>
+                        ` : ''}
+                      </div>
+                    </div>
+                    ${testSubmitted && isRightAnswer ? '<i class="fa-solid fa-check text-bioGreen mt-1 shrink-0"></i>' : ''}
+                  </button>
+                `;
+              }).join('')}
+            </div>
+
+            <!-- Post-Submission Detailed Explanation -->
+            ${testSubmitted ? `
+              <div class="bg-black/60 border border-bgElevated rounded-xl p-4 space-y-2 text-xs sm:text-sm">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <span class="font-bold text-bioGreen">✓ ${q.word.term}: "${q.word.definition}"</span>
+                  <button onclick="openVisualModal(${q.word.id})" class="text-bioBlue hover:underline font-mono text-xs">
+                    <i class="fa-solid fa-eye mr-1"></i>View Visual Diagram
+                  </button>
+                </div>
+                <p class="text-bioOrange font-medium"><i class="fa-solid fa-triangle-exclamation mr-1"></i><strong>Key Tip to Remember:</strong> ${q.trapNote}</p>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function submitPracticeTest() {
+      testSubmitted = true;
+      let correctCount = 0;
+      currentTestQuestions.forEach((q, idx) => {
+        if (userTestAnswers[idx] === q.correctIndex) {
+          correctCount++;
+          fcStatusMap[q.word.id] = 'gotit';
+        }
+      });
+
+      const total = currentTestQuestions.length;
+      const pct = Math.round((correctCount / total) * 100);
+      savedTestScores[currentTestVersion] = `${pct}% (${correctCount}/${total})`;
+
+      const badge = document.getElementById(`test-score-badge-${currentTestVersion}`);
+      if (badge) {
+        badge.textContent = `Best: ${pct}%`;
+        badge.className = "text-[11px] font-mono font-bold text-bioGreen";
+      }
+
+      playSound(pct >= 80 ? 'celebrate' : 'correct');
+      updateGlobalMasteryHeader();
+
+      const missedCount = total - correctCount;
+      const banner = document.getElementById('test-results-banner');
+      banner.classList.remove('hidden');
+      banner.innerHTML = `
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div class="space-y-1 text-center md:text-left">
+            <span class="px-2.5 py-0.5 rounded-md bg-bioGreen/20 text-bioGreen font-mono text-xs font-bold">
+              TEST VERSION ${currentTestVersion} GRADED
+            </span>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white">
+              Score: <span class="text-bioGreen">${correctCount} / ${total} (${pct}%)</span>
+            </h3>
+            <p class="text-xs sm:text-sm text-zinc-300">
+              ${missedCount === 0
+                ? `Awesome job! Jeffery aced all ${total} mixed Word & Definition questions on Test ${currentTestVersion}!`
+                : `Review the ${missedCount} missed question(s) highlighted in red below, then retry the missed words or generate a new random mix!`}
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2.5">
+            ${missedCount > 0 ? `
+              <button onclick="generateCurrentTest(true)" class="px-5 py-3 rounded-xl bg-bioOrange text-black font-extrabold text-xs sm:text-sm transition">
+                <i class="fa-solid fa-rotate mr-1"></i> Retake ${missedCount} Missed Only
+              </button>
+            ` : ''}
+            <button onclick="generateCurrentTest(false)" class="px-5 py-3 rounded-xl bg-bioGreen text-black font-extrabold text-xs sm:text-sm transition">
+              <i class="fa-solid fa-dice mr-1"></i> New Random 16-Question Mix
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('test-submit-footer').classList.add('hidden');
+      renderPracticeTestQuestions();
+      banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    /**************************************************************
+     * 10. KEYBOARD SHORTCUTS & INITIALIZATION
+     **************************************************************/
+    window.addEventListener('keydown', (e) => {
+      if (currentTab !== 'flashcards') return;
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
+
+      if (e.code === 'Space') {
+        e.preventDefault();
+        flipFlashcard();
+      } else if (e.code === 'ArrowRight') {
+        e.preventDefault();
+        nextFlashcard();
+      } else if (e.code === 'ArrowLeft') {
+        e.preventDefault();
+        prevFlashcard();
+      }
+    });
+
+    window.onload = function () {
+      renderFlashcardView();
+      renderVisualGrid();
+      updateGlobalMasteryHeader();
+    };
+  </script>
+</body>
+</html>
